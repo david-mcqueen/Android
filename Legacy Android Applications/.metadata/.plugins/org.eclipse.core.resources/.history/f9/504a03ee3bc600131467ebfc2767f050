@@ -1,0 +1,206 @@
+package co.uk.introapps.NinoMilano.Fragment;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
+import co.uk.introapps.NiniMilano.Database.CategoryChild;
+import co.uk.introapps.NiniMilano.Database.CategoryParent;
+import co.uk.introapps.NiniMilano.Database.Treatment;
+import co.uk.introapps.NiniMilano.Database.dbContentProvider;
+import co.uk.introapps.NinoMilano.MainActivity;
+import co.uk.introapps.NinoMilano.R;
+import co.uk.introapps.NinoMilano.Background.UpdateDatabase;
+import co.uk.introapps.NinoMilano.model.Category;
+import co.uk.introapps.NinoMilano.model.ExpandableAdapter;
+import co.uk.introapps.NinoMilano.model.ItemDetail;
+
+public class FragmentPrices extends Fragment{
+	
+	private static final String TAG = "Nino-Prices Fragment";
+	public static final String ARG_SECTION_NUMBER = "section_number";
+	private List<Category> catList;
+	View rootView;
+	
+	public static final String NINO_PREFS = "NinoPrefs";
+	
+	
+	public FragmentPrices(){
+	}
+	
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		
+			rootView = inflater.inflate(R.layout.fragment_prices,
+					container, false);
+			
+			setRetainInstance(true);
+			Log.i(TAG, "Frag Name " + this.getTag());
+			
+			
+			if (!databaseUpdating()){
+				populateData();
+				showLoading(false);
+			}else{
+				showLoading(true);
+			}
+			
+			
+			return rootView;
+	}
+	
+	public void showLoading(boolean toggle){
+		ExpandableListView exList = (ExpandableListView) rootView.findViewById(R.id.expandableListView1);
+		ProgressBar progress = (ProgressBar) rootView.findViewById(R.id.progressPrices);
+		
+		if(toggle){
+			progress.setVisibility(View.VISIBLE);
+			exList.setVisibility(View.INVISIBLE);
+		}else{
+			progress.setVisibility(View.INVISIBLE);
+			exList.setVisibility(View.VISIBLE);
+		}
+		
+	}
+		
+	public void populateData(){
+		initData();
+		ExpandableListView exList = (ExpandableListView) rootView.findViewById(R.id.expandableListView1);
+		ExpandableAdapter exAdpt = new ExpandableAdapter(catList, getActivity().getBaseContext());
+        exList.setIndicatorBounds(exList.getRight() -20, exList.getWidth());
+        exList.setAdapter(exAdpt);
+	}
+	private void initData() {
+
+    	catList = new ArrayList<Category>();
+    	
+    	//Get all the ID's for the parent categories
+    	String parentQuery = "SELECT P." + CategoryParent.CategoryParentItem._ID
+    			+ ", P." + CategoryParent.CategoryParentItem.NAME
+    			+ " FROM " + CategoryParent.CategoryParentItem.TABLE_NAME
+    			+ " P ORDER BY P." + CategoryParent.CategoryParentItem._ID;
+    	Cursor parentCursor = dbContentProvider.getData(parentQuery, null);
+    	
+    	int categoriesFound = parentCursor.getCount();
+    	
+    	Log.i(TAG,(String.valueOf(categoriesFound) + " parent categories found"));
+    	
+    	//For each of the categories found, get all of its treatments and build up a list.
+    	for (int i = 1; i <= categoriesFound; i++){
+    		
+    		//Query to get all of the info for each treatment
+	    	String treatmentQuery = "SELECT C." + CategoryChild.CategoryChildItem.NAME
+					+ ", T." + Treatment.TreatmentItem.NAME
+					+ ", T." + Treatment.TreatmentItem.PRICE
+					+ ", C." + CategoryChild.CategoryChildItem.IMAGE_URL
+					+ " FROM " + CategoryChild.CategoryChildItem.TABLE_NAME
+					+ " C INNER JOIN " + Treatment.TreatmentItem.TABLE_NAME
+						+ " T ON T." + Treatment.TreatmentItem.CATEGORY_ID
+						+ " = C." + CategoryChild.CategoryChildItem.CATEGORY_ID
+					+ " WHERE " + CategoryChild.CategoryChildItem.PARENT_ID + " = ? "
+					+ " GROUP BY C." + CategoryChild.CategoryChildItem.NAME
+					+ ", T." + Treatment.TreatmentItem.NAME
+					+ ", T." + Treatment.TreatmentItem.PRICE
+					+ " ORDER BY C." + CategoryChild.CategoryChildItem.NAME;
+	    	
+	    	//The parent category ID
+			String[] SelectionArgs = {
+					String.valueOf(i)
+			};
+	
+			//Create a cursor for each treatment under the parent category
+			Cursor treatmentCursor = dbContentProvider.getData(treatmentQuery, SelectionArgs);
+			
+			//Move the cursor along
+			if (parentCursor.moveToNext()){
+				Category cat = createCategory(parentCursor.getString(1), "Ladies Haircuts", 1);
+				List<ItemDetail> ListOfItems = new ArrayList<ItemDetail>();
+				
+				while (treatmentCursor.moveToNext()){
+					ItemDetail item = new ItemDetail(
+								1, //ID
+								0, //Image ID
+								treatmentCursor.getString(1), //Name
+								treatmentCursor.getString(0), //Description
+								"£" + treatmentCursor.getString(2), //price
+								treatmentCursor.getString(3) //Image URL
+							);
+					ListOfItems.add(item);
+				}
+				cat.setItemList(ListOfItems);
+				catList.add(cat);
+			}
+			
+			treatmentCursor.close();
+    	}
+    	
+    	parentCursor.close();
+    	
+    }
+	
+	private Category createCategory(String name, String descr, long id) {
+    	return new Category(id, name, descr);
+    }
+	
+	public boolean databaseUpdating(){
+	//	---Check if the database should be updated---
+		//Returns true if updating, else false.
+			MainActivity activity = (MainActivity) getActivity();
+			Calendar calendar = Calendar.getInstance();
+			//Get the shared preferences
+			SharedPreferences preferences = activity.getSharedPreferences(NINO_PREFS, 0);
+			boolean previouslyUpdated = preferences.getBoolean("previouslyUpdated", false);
+			boolean forceUpdate = preferences.getBoolean("forceUpdate", false);
+			int updatedDay = preferences.getInt("updatedDay", 1);
+			int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+			
+			//Check to see if there is data in the DB
+			String[] projection = {Treatment.TreatmentItem.TREATMENT_ID};
+			Cursor c = activity.getContentResolver().query(dbContentProvider.CONTENT_URI_TREATMENT, projection, null, null, Treatment.TreatmentItem.DEFAULT_SORT_ORDER);
+	
+			forceUpdate = true;
+			
+			Log.i(TAG, "Checking if the DB should be updated");
+			if(!previouslyUpdated //If it hasn't been previously updated.
+					||(dayOfYear - 7) >= updatedDay //Or if the previously updated day was 7 days ago or more
+					|| forceUpdate //Or if the user wants to force an update.
+					|| c.getCount() < 1) // Or if the treatments table is empty
+			{
+				Log.i(TAG, "Calling Asycn from Fragment Prices");
+		        
+				new UpdateDatabase(activity.getBaseContext()).execute();
+				
+				//After we have updated, save the new preferences
+				SharedPreferences.Editor preferencesEditor = preferences.edit();
+				preferencesEditor.putBoolean("previouslyUpdated", true);
+				preferencesEditor.putInt("updatedDay", dayOfYear);
+				preferencesEditor.putBoolean("forceUpdate", false);
+				
+				preferencesEditor.commit();
+				return true;
+			}
+			
+			c.close();
+			return false;
+		}
+	
+	public void taskDone(String returnVal) {
+	    //Do stuff once data has been loaded
+		Log.i(TAG, returnVal);
+	}
+	
+}
+

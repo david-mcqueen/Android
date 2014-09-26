@@ -1,0 +1,19 @@
+1397735651759	Rename method 'checkDatabase'
+1397736863859	Rename resource 'loyalty_main.xml'
+1397736919913	Rename type 'FragmentLoyalty'
+1397736985674	Delete element
+1397737007947	Move compilation unit
+1397737762333	Delete element
+1397745997565	Rename type 'UpdateDatabase'
+1397749240029	Rename resource 'Contact@2x.png'
+1397749311827	Rename resource 'Top_Charts@2x.png'
+1397749478051	Rename resource 'top_bar.png'
+1397749507181	Rename resource 'Favorites@2x.png'
+1397749586076	Rename resource 'messages_grey.png'
+1397749598485	Rename resource 'messagestestimonials.png'
+1397750685142	Rename package 'co.uk.introapps.NinoMilano.model'
+1397752630861	Rename type 'Item'
+1397752645312	Rename type 'MyAdapter'
+1397752661615	Rename type 'ItemDetail'
+1397752677973	Rename type 'Category'
+1397752694064	Rename type 'ExpandableAdapter'

@@ -1,0 +1,378 @@
+package co.uk.davemcqueen.usegps;
+
+
+import com.mobfox.sdk.MobFoxView;
+import com.mobfox.sdk.Mode;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+import co.uk.davemcqueen.FindMe.R;
+
+
+public class UseGPSActivity extends Activity {
+	boolean locationProvided = false; // Flag to identify if the current location has been returned. To ensure that the location is updated
+	// only when the users presses upon the button to obtain the location.
+	String myLocation = "LOCATION NOT FOUND!!!!";
+	public ProgressDialog progressDialog;
+	double longLoc;
+	double latLoc;
+	boolean slowConnection = false;
+	boolean gpsEnabled = false;
+	private RelativeLayout layout;
+	private MobFoxView mobfoxView;
+	
+	
+	/** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE); // removes the title bar from the app
+        setContentView(R.layout.main);  
+        layout = (RelativeLayout) findViewById(R.id.mobfoxContent);
+        mobfoxView = new MobFoxView(this, "e4b42e54238276520bcafa1d17a265e0", Mode.LIVE, true, true);
+        
+       // mobfoxView.setBannerListener(this);
+        mobfoxView.setVisibility(View.VISIBLE);
+        layout.addView(mobfoxView);
+        
+        showDialogMessage(3); //---instructions---
+    	             
+       
+        //---Handler to control the find location button---
+        Button getLocation;
+        getLocation = (Button) findViewById(R.id.btngetLocation);
+        getLocation.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				getLocationFunction(); //---calls the function to obtain the users locations---
+			}
+		});
+        
+        //---Handler to control the send location button---
+        Button sendLocation;
+        sendLocation = (Button) findViewById(R.id.btnSendLocation);
+        sendLocation.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				sendLocation();
+			}
+
+				
+        });
+        
+    }
+    
+  
+    //---Class MyLocation Listener---
+    public class MyLocationListener implements LocationListener
+    {
+    	
+		@Override
+		public void onLocationChanged(Location location) {
+			// TODO Auto-generated method stub
+			location.getLatitude();
+			location.getLatitude();
+
+			if (locationProvided == false)
+			{
+				
+				//---Displays the location in Degrees (Lat & Long)---
+			String Text = "Your current location is: " + "lat = " + (location.getLatitude()) +
+					" long = " + (location.getLongitude());
+			DisplayPopUp(Text);
+			longLoc = location.getLongitude();
+			latLoc = location.getLatitude();
+			String Url = "http://maps.google.com/maps?q=" +
+					String.valueOf(location.getLatitude()) + "," +
+					String.valueOf(location.getLongitude());//+ "'";
+			myLocation = "Click here to see my location!: " + Url +
+					"" +
+					"  Sent with Find Me! Avaliable on the android market now!!";
+			locationProvided = true;
+			showDialogMessage(2);
+			}
+		}
+
+		@Override
+		public void onProviderDisabled(String provider) {
+			// TODO Auto-generated method stub
+			gpsEnabled = false;
+			showDialogMessage(1);
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+			// TODO Auto-generated method stub
+			gpsEnabled = true;
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			// TODO Auto-generated method stub
+			
+		}
+    	 } //---End of MyLocation Listener Class---
+    
+    
+    
+    //---Function to display a pop up---
+    public void DisplayPopUp (String Text)
+    {
+    	Toast.makeText(getApplicationContext(), Text, Toast.LENGTH_LONG).show();
+    }
+    
+    private void sendEmail (String message) {
+		Intent emailIntent = new Intent(Intent.ACTION_SEND);
+		emailIntent.setData(Uri.parse("mailto:"));
+		emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Find Me!");
+		emailIntent.putExtra(Intent.EXTRA_TEXT, message);
+		emailIntent.setType("message/rfc822");
+		startActivity(Intent.createChooser(emailIntent, "Email"));
+	}
+    
+    //---function to display a dialog pop up message, relevant to the ID passed to it---
+    private void showDialogMessage (int id) {
+    	switch (id){
+    	
+    	case 0: //Display error message, no location
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setCancelable(true);
+    		builder.setTitle("Error!");
+    		builder.setMessage("No location obtained! Please obtain location before sending!");
+    		builder.setInverseBackgroundForced(true);
+    		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			
+    			@Override
+    			public void onClick(DialogInterface dialog, int which) {
+    				// TODO Auto-generated method stub
+    				locationProvided = false;
+    				final LocationManager mlocManager= (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+    	            final LocationListener mlocListener = new MyLocationListener();
+    				if (!mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+    					showDialogMessage(1); //if GPS not enabled, show message
+    				} 
+    				else if (mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+    				showDialogMessage(2); //If GPS enabled continue
+    				mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+    				}
+    		    	
+    			}
+    		});
+    		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			
+    			@Override
+    			public void onClick(DialogInterface dialog, int which) {
+    				// TODO Auto-generated method stub
+    				dialog.dismiss();
+    			}
+    		});
+    		AlertDialog alert = builder.create();
+    		alert.show();
+    	return;
+    	
+    	case 1: //Display error message, GPS not enabled!
+    		AlertDialog.Builder builderGPS = new AlertDialog.Builder(this);
+    		builderGPS.setCancelable(true);
+    		builderGPS.setTitle("Error!");
+    		builderGPS.setMessage("Your GPS is disabled! Would you like to enable it?");
+    		builderGPS.setInverseBackgroundForced(true);
+    		builderGPS.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			
+    			@Override
+    			public void onClick(DialogInterface dialog, int which) {
+    				// TODO Auto-generated method stub
+    				dialog.dismiss();
+    				showGpsOptions();
+    			}
+    		});
+    		builderGPS.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			
+    			@Override
+    			public void onClick(DialogInterface dialog, int which) {
+    				// TODO Auto-generated method stub
+    				dialog.dismiss();
+    			}
+    		});
+    		AlertDialog alertGPS = builderGPS.create();
+    		alertGPS.show();
+    	return;
+    	
+    	case 2: //progress dialog. Searching for location!
+    		
+    		if (slowConnection == true) {
+    			
+    		}
+    		else if (locationProvided == false) {
+    			progressDialog = ProgressDialog.show(UseGPSActivity.this, "Obtaining Location", "Searching...", true);
+    		}
+    		else if (locationProvided == true) {
+    			progressDialog.dismiss();
+    			progressDialog.cancel();
+    		}
+    		 
+    		return;	
+    		
+    	case 3: // instructions
+    		AlertDialog.Builder builderInstructions = new AlertDialog.Builder(this);
+    		builderInstructions.setCancelable(true);
+    		builderInstructions.setTitle("Instructions.");
+    		builderInstructions.setMessage("1) Press the thought bubble to find your location.\n" +
+    				"2) Press the pigeon to send your location.\n\n" +
+    				"It's that simple!");
+    		builderInstructions.setInverseBackgroundForced(true);
+    		builderInstructions.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			
+    			@Override
+    			public void onClick(DialogInterface dialog, int which) {
+    				// TODO Auto-generated method stub
+    				dialog.dismiss();
+    		    	
+    			}
+    		});
+    		
+    		AlertDialog alertInstructions = builderInstructions.create();
+    		alertInstructions.show();
+    }
+    	
+    }
+    private void showGpsOptions() {
+    	Intent gpsOptionsIntent = new Intent (
+    			android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+    	startActivity(gpsOptionsIntent);
+    }
+    
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	super.onCreateOptionsMenu(menu);
+    	CreateMenu(menu);
+    	return true;
+    }
+    
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+    	return MenuChoice(item);
+    }
+   
+    private void CreateMenu(Menu menu)
+    {
+    	MenuItem mnu1 = menu.add(0, 0, 0, "Get Location");
+    	{
+    		mnu1.setAlphabeticShortcut('a');
+    	}
+    	
+    	MenuItem mnu2 = menu.add(0, 1, 1, "Send Location");
+    	{
+    		mnu2.setAlphabeticShortcut('b');
+    	}
+    	
+    	MenuItem mnu3 = menu.add(0, 2, 2, "Show Instructions");
+    	{
+    		mnu3.setAlphabeticShortcut('c');
+    	}
+    	
+    	MenuItem mnu4 = menu.add(0, 3, 3, "Leave Feedback");
+    	{
+    		mnu4.setAlphabeticShortcut('d');
+    	}
+    }
+    
+    private boolean MenuChoice(MenuItem item) {
+    	switch (item.getItemId()) {
+    	case 0: // run the get location code
+    		getLocationFunction();
+    		return true;
+    	
+    	case 1: // run the send location code
+    		sendLocation();
+    		return true;
+    	
+    	case 2: //run the instructions code
+    		showDialogMessage(3);
+    		return true;
+    		
+    	case 3: //run the leave feedback code
+    		
+    		Intent i = new Intent(Intent.ACTION_VIEW);
+    		i.setData(Uri.parse("market://details?id=" + getPackageName()));
+    		startActivity(i);
+    		return true;
+    	}
+    	return false;
+    }
+ 
+    private void getLocationFunction() {
+    	final LocationManager mlocManager= (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        final LocationListener mlocListener = new MyLocationListener();
+        
+		
+			// TODO Auto-generated method stub
+			locationProvided = false;
+			if (!mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+				showDialogMessage(1); //if GPS not enabled, show message
+			} 
+			else if (mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+				//If GPS enabled continue
+				
+			showDialogMessage(2); 
+			mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+			
+		}
+    }
+    
+    private void sendLocation() {
+			// TODO Auto-generated method stub
+			
+			DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					switch (which) {
+					case DialogInterface.BUTTON_POSITIVE:
+					//---"Email" button clicked
+						sendEmail(myLocation);						
+						break;
+						
+					case DialogInterface.BUTTON_NEGATIVE:
+						//---"Text" button clicked---
+						Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+						i.putExtra("sms_body", myLocation);
+						i.setType("vnd.android-dir/mms-sms");
+						startActivity(i);
+						break;
+					}
+				}
+			};
+							
+			if (locationProvided == true) {
+			//---The control to display a 2 button dialog---
+			AlertDialog.Builder builder = new AlertDialog.Builder(UseGPSActivity.this);
+			builder.setMessage("Send location by...")
+			.setPositiveButton("Email", dialogClickListener)
+			.setNegativeButton("Text", dialogClickListener).show();
+			} else if (locationProvided == false) {
+				showDialogMessage(0);
+			}
+    }
+}
+    
+

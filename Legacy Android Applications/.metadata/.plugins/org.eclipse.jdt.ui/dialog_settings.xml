@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="500" key="CallHierarchyViewPart.ratio3"/>
+	<item value="/Users/Dave/Programming SDKs/Android/android-sdk-macosx/extras/android/support/v4" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="500" key="CallHierarchyViewPart.ratio1"/>
+	<item value="3" key="CallHierarchyViewPart.orientation"/>
+	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
+	<item value="2" key="CallHierarchyViewPart.field_mode"/>
+	<item value="0" key="CallHierarchyViewPart.call_mode"/>
+	<list key="SearchScopeActionGroup.working_set">
+	</list>
+	<section name="OptionalMessageDialog.hide.">
+		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
+	</section>
+	<section name="OverrideMethodDialog">
+		<item value="true" key="showtypes"/>
+	</section>
+	<section name="BuildPathsPropertyPage">
+		<item value="2" key="pageIndex"/>
+	</section>
+	<section name="DialogBounds_SuperInterfaceSelectionDialog">
+		<item value="356" key="DIALOG_WIDTH"/>
+		<item value="18" key="DIALOG_Y_ORIGIN"/>
+		<item value="90" key="DIALOG_X_ORIGIN"/>
+		<item value="456" key="DIALOG_HEIGHT"/>
+		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="ClasspathContainerSelectionPage">
+		<item value="3" key="index"/>
+	</section>
+	<section name="SourceActionDialog.methods">
+		<item value="false" key="Comments"/>
+		<item value="1" key="VisibilityModifier"/>
+		<item value="2" key="InsertPosition.v2"/>
+		<item value="false" key="SynchronizedModifier"/>
+		<item value="false" key="FinalModifier"/>
+	</section>
+	<section name="javadoc">
+		<item value="false" key="nodeprecatedlist"/>
+		<item value="false" key="notree"/>
+		<item value="true" key="splitindex"/>
+		<item value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/bin/javadoc" key="javadoc_command_history"/>
+		<item value="true" key="use"/>
+		<item value="false" key="nonavbar"/>
+		<item value="public" key="access"/>
+		<item value="true" key="version"/>
+		<item value="false" key="nodeprecated"/>
+		<item value="/Users/Dave/Dropbox/Programming/Android/IntroApps/introapps.co.uk.package1/doc" key="destdir"/>
+		<item value="true" key="author"/>
+		<item value="" key="docletname"/>
+		<item value="1.6" key="source"/>
+		<item value="false" key="openinbrowser"/>
+		<item value="false" key="noindex"/>
+		<item value="" key="docletpath"/>
+		<item value="/Users/Dave/Dropbox/Programming/Android/IntroApps/introapps.co.uk.package1/javadoc.xml" key="antpath"/>
+		<item value="true" key="fromStandard"/>
+		<section name="projects">
+			<section name="BooleanOGSample">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/BooleanOGSample/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/BooleanOGSample/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="ProfilePictureSample">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/ProfilePictureSample/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/ProfilePictureSample/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="Ex91">
+				<item value="/Users/Dave/Dropbox/Uni/2nd Year/web &amp; mobile/Android/lt2771/exercises/Ex91/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Uni/2nd Year/web &amp; mobile/Android/lt2771/exercises/Ex91/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="Hackbook">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/Hackbook/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/Hackbook/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="FirstAndroidApp">
+				<item value="/Users/Dave/Dropbox/Programming/Android/FirstAndroidApp/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/Android/FirstAndroidApp/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="PlacePickerSample">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/PlacePickerSample/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/PlacePickerSample/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="Sophie">
+				<item value="/Users/Dave/Dropbox/Programming/Android/Sophie/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/Android/Sophie/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="Assignment">
+				<item value="/Users/Dave/Dropbox/Programming/Android/Assignment/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/Android/Assignment/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="Ex22">
+				<item value="/Users/Dave/Dropbox/Uni/2nd Year/web &amp; mobile/Android/lt2771/exercises/Ex22/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Uni/2nd Year/web &amp; mobile/Android/lt2771/exercises/Ex22/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="SwitchUserSample">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/SwitchUserSample/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/SwitchUserSample/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="FriendPickerSample">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/FriendPickerSample/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/FriendPickerSample/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="SessionLoginSample">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/SessionLoginSample/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/SessionLoginSample/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="HelloFacebookSample">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/HelloFacebookSample/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/HelloFacebookSample/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="Test">
+				<item value="/Users/Dave/Dropbox/Programming/Android/Test/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/Android/Test/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="Scrumptious">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/Scrumptious/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/Scrumptious/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="UseGPS">
+				<item value="/Users/Dave/Dropbox/Programming/Android/UseGPS/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/Android/UseGPS/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="co.uk.introapps.NinoMilano">
+				<item value="/Users/Dave/Dropbox/Programming/Android/IntroApps/introapps.co.uk.package1/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/Android/IntroApps/introapps.co.uk.package1/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="FacebookSDK">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/facebook/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/facebook/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="GraphApiSample">
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/GraphApiSample/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/facebook-android-sdk-3.0/samples/GraphApiSample/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+			<section name="packOfCards">
+				<item value="/Users/Dave/Dropbox/Programming/Android/packOfCards/doc" key="destdir"/>
+				<item value="/Users/Dave/Dropbox/Programming/Android/packOfCards/javadoc.xml" key="antpath"/>
+				<item value="" key="href"/>
+			</section>
+		</section>
+	</section>
+	<section name="org.eclipse.jdt.internal.ui.typehierarchy.QuickHierarchy">
+		<item value="350" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_WIDTH"/>
+		<item value="false" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_USE_PERSISTED_LOCATION"/>
+		<item value="300" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_HEIGHT"/>
+		<item value="true" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_USE_PERSISTED_SIZE"/>
+	</section>
+	<section name="DialogBounds_AddUnimplementedConstructorsDialog">
+		<item value="517" key="DIALOG_WIDTH"/>
+		<item value="7" key="DIALOG_Y_ORIGIN"/>
+		<item value="570" key="DIALOG_HEIGHT"/>
+		<item value="382" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">
+		<item value="true" key="group_libraries"/>
+		<item value="false" key="linkWithEditor"/>
+		<item value="2" key="layout"/>
+		<item value="1" key="rootMode"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;packageExplorer group_libraries=&quot;1&quot; layout=&quot;2&quot; linkWithEditor=&quot;0&quot; rootMode=&quot;1&quot; workingSetName=&quot;&quot;&gt;&#x0A;&lt;customFilters userDefinedPatternsEnabled=&quot;false&quot;&gt;&#x0A;&lt;xmlDefinedFilters&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.LibraryFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.StaticsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.pde.ui.ExternalPluginLibrariesFilter1&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer_patternFilterId_RemoteSystemsConnections&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.FieldsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer_patternFilterId_RemoteSystemsTempFiles&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.pde.ui.BinaryProjectFilter1&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0A;&lt;child filterId=&quot;org.eclipse.mylyn.java.ui.MembersFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0A;&lt;/xmlDefinedFilters&gt;&#x0A;&lt;/customFilters&gt;&#x0A;&lt;/packageExplorer&gt;" key="memento"/>
+	</section>
+	<section name="JavaElementSearchActions">
+	</section>
+	<section name="AddUnimplementedConstructorsDialog">
+		<item value="false" key="OmitCallToSuper"/>
+	</section>
+	<section name="SearchInDialog">
+		<item value="true" key="SearchInJRE"/>
+		<item value="true" key="SearchInProjects"/>
+		<item value="true" key="SearchInAppLibs"/>
+		<item value="true" key="SearchInSources"/>
+	</section>
+	<section name="RenameInformationPopup">
+	</section>
+	<section name="org.eclipse.jdt.internal.ui.text.QuickOutline">
+		<item value="false" key="GoIntoTopLevelTypeAction.isChecked"/>
+		<item value="true" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_USE_PERSISTED_SIZE"/>
+		<item value="350" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_WIDTH"/>
+		<item value="300" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_HEIGHT"/>
+		<item value="false" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_USE_PERSISTED_LOCATION"/>
+	</section>
+	<section name="CallHierarchySearchScope">
+	</section>
+	<section name="DialogBounds_OverrideMethodDialog">
+		<item value="523" key="DIALOG_WIDTH"/>
+		<item value="179" key="DIALOG_Y_ORIGIN"/>
+		<item value="410" key="DIALOG_HEIGHT"/>
+		<item value="534" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="SelfEncapsulateFieldWizard">
+		<item value="false" key="GenerateJavadoc"/>
+	</section>
+	<section name="SourceActionDialog.constructors">
+		<item value="false" key="Comments"/>
+		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="SynchronizedModifier"/>
+		<item value="false" key="FinalModifier"/>
+	</section>
+	<section name="RefactoringWizard.preview">
+		<item value="400" key="height"/>
+		<item value="600" key="width"/>
+	</section>
+	<section name="quick_assist_proposal_size">
+	</section>
+	<section name="org.eclipse.jdt.internal.ui.dialogs.OpenTypeSelectionDialog2">
+		<item value="true" key="ShowStatusLine"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History/&gt;" key="History"/>
+	</section>
+	<section name="NewPackageWizardPage">
+		<item value="false" key="create_package_info_java"/>
+	</section>
+	<section name="org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog">
+		<item value="true" key="ShowStatusLine"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History/&gt;" key="History"/>
+		<section name="DialogBoundsSettings">
+			<item value="600" key="DIALOG_WIDTH"/>
+			<item value="65" key="DIALOG_Y_ORIGIN"/>
+			<item value="0" key="DIALOG_X_ORIGIN"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
+			<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
+		</section>
+	</section>
+	<section name="completion_proposal_size">
+	</section>
+	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item value="*" key="patterns"/>
+		<item value="false" key="updateQualifiedNames"/>
+		<item value="false" key="renameSubpackages"/>
+		<item value="1" key="updateSimilarElementsMatchStrategy"/>
+		<item value="false" key="updateTextualMatches"/>
+		<item value="false" key="updateSimilarElements"/>
+	</section>
+	<section name="NewClassWizardPage">
+		<item value="false" key="create_constructor"/>
+		<item value="true" key="create_unimplemented"/>
+		<item value="true" key="create_main"/>
+	</section>
+	<section name="JavadocWizardDialog">
+		<item value="600" key="DIALOG_WIDTH"/>
+		<item value="0" key="DIALOG_Y_ORIGIN"/>
+		<item value="340" key="DIALOG_X_ORIGIN"/>
+		<item value="582" key="DIALOG_HEIGHT"/>
+		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
+	</section>
+</section>

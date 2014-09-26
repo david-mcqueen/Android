@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:screenOrientation="portrait" 
+    android:background="@drawable/nino_home">
+
+   	<ImageButton
+   	    android:id="@+id/btnCall"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignParentRight="true"
+   	    android:layout_alignParentTop="true"
+   	    android:layout_marginRight="20dp"
+   	    android:layout_marginTop="20dp"
+   	    android:src="@drawable/button_image_phone"
+   	    android:background="@null" />
+
+   	<ImageButton
+   	    android:id="@+id/btnEmail"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignTop="@+id/btnCall"
+   	    android:layout_marginRight="20dp"
+   	    android:layout_toLeftOf="@+id/btnCall"
+   	    android:background="@null"
+   	    android:src="@drawable/button_image_email" />
+
+   	<ImageButton
+   	    android:id="@+id/btnMessageShare"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignLeft="@+id/btnCall"
+   	    android:layout_below="@+id/btnCall"
+   	    android:layout_marginTop="20dp"
+   	    android:background="@null"
+   	    android:src="@drawable/button_image_message" />
+
+   	<ImageButton
+   	    android:id="@+id/btnTwitterShare"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignLeft="@+id/btnEmail"
+   	    android:layout_alignTop="@+id/btnMessageShare"
+   	    android:background="@null"
+   	    android:src="@drawable/button_image_twitter" />
+
+   	<ImageButton
+   	    android:id="@+id/btnFacebookShare"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignLeft="@+id/btnMessageShare"
+   	    android:layout_below="@+id/btnMessageShare"
+   	    android:layout_marginTop="20dp"
+   	    android:background="@null"
+   	    android:src="@drawable/button_image_fb" />
+
+   	<com.facebook.widget.LoginButton
+   	    xmlns:fb="http://schemas.android.com/apk/res-auto"
+   	    android:id="@+id/authButton"
+   	    android:layout_width="50dip"
+   	    android:layout_height="50dip"
+   	    android:layout_alignLeft="@+id/btnFacebookShare"
+   	    android:layout_alignTop="@+id/btnFacebookShare"
+   	    android:background="@drawable/button_image_fb"
+   	    android:scaleType="centerInside"
+   	    android:src="@drawable/button_image_fb"
+   	    fb:login_text=""
+        fb:logout_text="" />
+  
+</RelativeLayout>

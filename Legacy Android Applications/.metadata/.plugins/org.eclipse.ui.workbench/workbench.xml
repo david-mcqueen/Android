@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workbench progressCount="16" version="2.0">
+<workbenchAdvisor/>
+<mruList>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="SmsManager.class" tooltip="android.telephony.SmsManager">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=BasicViews5/\/Applications\/eclipse\/android-SDK\/platforms\/android-7\/android.jar&lt;android.telephony(SmsManager.class"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="custom_dialog.xml" tooltip="UseGPS/res/layout/custom_dialog.xml">
+<persistable path="/UseGPS/res/layout/custom_dialog.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="main.xml" tooltip="UseGPS/res/main.xml">
+<persistable path="/UseGPS/res/main.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="main.xml" tooltip="UseGPS/res/layout/main.xml">
+<persistable path="/UseGPS/res/layout/main.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="bottomimagegallery.xml" tooltip="Sophie/res/layout/bottomimagegallery.xml">
+<persistable path="/Sophie/res/layout/bottomimagegallery.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="bottomgallery.java" tooltip="Sophie/src/co/uk/davemcqueen/Sophie/bottomgallery.java">
+<persistable path="/Sophie/src/co/uk/davemcqueen/Sophie/bottomgallery.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UseGPSActivity.java" tooltip="UseGPS/src/co/uk/davemcqueen/usegps/UseGPSActivity.java">
+<persistable path="/UseGPS/src/co/uk/davemcqueen/usegps/UseGPSActivity.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="UseGPS/AndroidManifest.xml">
+<persistable path="/UseGPS/AndroidManifest.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="strings.xml" tooltip="Sophie/res/values/strings.xml">
+<persistable path="/Sophie/res/values/strings.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="main.xml" tooltip="Sophie/res/layout/main.xml">
+<persistable path="/Sophie/res/layout/main.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="topimagegallery.xml" tooltip="Sophie/res/layout/topimagegallery.xml">
+<persistable path="/Sophie/res/layout/topimagegallery.xml"/>
+</file>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Instrumentation.class" tooltip="android.app.Instrumentation">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=AR/\/Applications\/eclipse\/android-SDK\/platforms\/android-15\/android.jar&lt;android.app(Instrumentation.class"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="Sophie/AndroidManifest.xml">
+<persistable path="/Sophie/AndroidManifest.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="Emails/AndroidManifest.xml">
+<persistable path="/Emails/AndroidManifest.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EmailsActivity.java" tooltip="Emails/src/co/uk/davemcqueen/Emails/EmailsActivity.java">
+<persistable path="/Emails/src/co/uk/davemcqueen/Emails/EmailsActivity.java"/>
+</file>
+</mruList>
+</workbench>

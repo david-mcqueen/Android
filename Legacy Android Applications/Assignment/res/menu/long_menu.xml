@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/menu_event_edit" android:title="@string/menu_str_edit"></item>
+    <item android:id="@+id/menu_event_delete" android:title="@string/menu_str_delete"></item>
+    <group android:id="@+id/share">
+        <item android:id="@+id/share_facebook" android:title="@string/menu_share_facebook"></item>
+    </group>
+    
+
+</menu>

@@ -1,0 +1,89 @@
+package co.uk.introapps.NinoMilano;
+
+import java.util.ArrayList;
+
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.Toast;
+
+public class FragmentPrices extends Fragment{
+	
+	
+	public static final String ARG_SECTION_NUMBER = "section_number";
+	View rootView;
+	
+	
+	public FragmentPrices(){
+	}
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		
+			rootView = inflater.inflate(R.layout.fragment_prices,
+					container, false);
+			
+			MyAdapter adapter = new MyAdapter(getActivity().getBaseContext(), generateData());
+			
+			ListView treatmentList = (ListView) rootView.findViewById(R.id.list_treatment);
+			
+			
+			treatmentList.setAdapter(adapter);
+			
+			//populateList();
+			return rootView;
+	}
+	
+	private ArrayList<Item> generateData(){
+		/*
+		 * TODO
+		 * Because the DB is updated Async, should add a hold on here if it is being updated
+		 * and call that from the async onComplete method
+		 * Display a spinner if there are no items at all, and it is being updated. 
+		 * 
+		 */
+        ArrayList<Item> items = new ArrayList<Item>();
+        
+        String[] projection = {
+        		Treatment.TreatmentItem.TREATMENT_ID,
+				Treatment.TreatmentItem.NAME,
+				Treatment.TreatmentItem.PRICE,
+				Treatment.TreatmentItem.CATEGORY_ID
+				};
+        
+		Cursor c = getActivity().getContentResolver().query(
+				dbContentProvider.CONTENT_URI_TREATMENT,
+				projection,
+				null,
+				null,
+				Treatment.TreatmentItem.DEFAULT_SORT_ORDER + "Asc");
+		
+		
+		while(c.moveToNext()){
+			String temp = c.getString(3);
+			
+			switch(Integer.parseInt(temp)){
+			case 1:
+				items.add(new Item(c.getString(1), "Ladies"));
+			case 2:
+				items.add(new Item(c.getString(1), "Mens"));
+			case 3:
+				items.add(new Item(c.getString(1), "Child"));
+			default:
+				items.add(new Item(c.getString(1), "Unknown"));
+			}
+		}
+		
+        return items;
+    }
+	
+	
+	public void displayToast (String message){
+		Toast.makeText(getActivity().getBaseContext(), message, Toast.LENGTH_SHORT).show();
+	}
+	
+}
+

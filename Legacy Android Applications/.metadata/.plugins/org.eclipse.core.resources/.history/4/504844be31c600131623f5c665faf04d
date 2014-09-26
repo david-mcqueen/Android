@@ -1,0 +1,47 @@
+package FragmentHolder;
+
+import java.util.Calendar;
+
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import co.uk.introapps.NiniMilano.Database.Treatment;
+import co.uk.introapps.NiniMilano.Database.dbContentProvider;
+import co.uk.introapps.NinoMilano.MainActivity;
+import co.uk.introapps.NinoMilano.R;
+import co.uk.introapps.NinoMilano.Background.UpdateDatabase;
+import co.uk.introapps.NinoMilano.Fragment.FragmentPrices;
+
+public class FragmentPricesHolder extends Fragment {
+
+	public static final String ARG_SECTION_NUMBER = "section_number";
+	private static final String TAG = "Nino-FragmentLoyalty";
+	public static final String NINO_PREFS = "NinoPrefs";
+
+	public FragmentPricesHolder() {
+	}
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView;
+
+		// --Load the main Fragment for Loyalty, which contains the replaceable
+		// placeholder
+		rootView = inflater.inflate(R.layout.holder_prices, container, false);
+
+
+		// Initalise the Fragment Transaction Manager
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.replace(R.id.pricesFragment_placeholder, new FragmentPrices());
+		ft.commit();
+		
+		return rootView;
+	}
+
+}

@@ -1,0 +1,15 @@
+package co.uk.introapps.NinoMilano;
+
+import android.os.AsyncTask;
+
+public class UpdateDatabase extends AsyncTask<Params, Progress, Result> {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

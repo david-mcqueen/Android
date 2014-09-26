@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <string-array name="syncInterval">
+        <item name = "0.5">Every 30 minutes</item>
+        <item name = "1">Every 1 hour</item>
+        <item name = "2">Every 2 hours</item>
+        <item name = "24">Every 24 hours</item>
+    </string-array>
+    
+    <string-array name="syncIntervalValues">
+        <item name = "0.5">Every 30 minutes</item>
+        <item name = "1">Every 1 hour</item>
+        <item name = "2">Every 2 hours</item>
+        <item name = "24">Every 24 hours</item>
+    </string-array>
+    
+    
+    <string-array name="locationValues">
+        <item name = "city">City</item>
+        <item name = "street">Street Address</item>
+        <item name = "gps">GPS Co-ordinates</item>
+    </string-array>
+    
+    <string-array name="location">
+        <item name = "city">City</item>
+        <item name = "street">Street Address</item>
+        <item name = "gps">GPS Co-ordinates</item>
+    </string-array>
+</resources>

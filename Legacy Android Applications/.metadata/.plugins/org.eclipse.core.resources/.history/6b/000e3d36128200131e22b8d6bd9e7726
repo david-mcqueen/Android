@@ -1,0 +1,70 @@
+package co.uk.introapps.NinoMilano;
+
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
+
+public class UpdateDatabase extends AsyncTask<Void, Void, Void> {
+
+	
+	private final Context mContext;
+	
+	public UpdateDatabase(Context context){
+		super();
+		this.mContext = context;
+	}
+	
+	@Override
+	protected Void doInBackground(Void... params) {
+		
+		ContentValues inputValuesTreatment = new ContentValues();
+	    inputValuesTreatment.put(Treatment.TreatmentItem.TREATMENT_ID, 1);
+	    inputValuesTreatment.put(Treatment.TreatmentItem.CATEGORY_ID, 1);
+	    inputValuesTreatment.put(Treatment.TreatmentItem.NAME, "Test Item");
+	    inputValuesTreatment.put(Treatment.TreatmentItem.PRICE, "9.99");
+	    inputValuesTreatment.put(Treatment.TreatmentItem.DATE_CREATED, "Today");
+	    
+	    Uri temp = this.mContext.getContentResolver().insert(dbContentProvider.CONTENT_URI_TREATMENT, inputValuesTreatment);
+	    //Toast.makeText(this.mContext, temp.toString(), Toast.LENGTH_SHORT).show();
+	    Log.v("Async", "Here");
+	    
+	    
+	    ContentValues inputValuesCategoryParent = new ContentValues();
+	    inputValuesCategoryParent.put(CategoryParent.CategoryParentItem.CATEGORY_ID, 1);
+	    inputValuesCategoryParent.put(CategoryParent.CategoryParentItem.NAME, "Test Category");
+	    inputValuesCategoryParent.put(CategoryParent.CategoryParentItem.DATE_CREATED, "Today");
+	    
+	    temp = this.mContext.getContentResolver().insert(dbContentProvider.CONTENT_URI_CATEGORY_PARENT,
+	    		inputValuesCategoryParent);
+	    //Toast.makeText(this.mContext, temp.toString(), Toast.LENGTH_SHORT).show();
+	    
+	    
+	    
+	    ContentValues inputValuesCategoryChild = new ContentValues();
+	    inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.CATEGORY_ID, 1);
+	    inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.PARENT_ID, 1);
+	    inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.NAME, "Test Category");
+	    inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.DATE_CREATED, "Today");
+	    
+	    temp = this.mContext.getContentResolver().insert(dbContentProvider.CONTENT_URI_CATEGORY_CHILD,
+	    		inputValuesCategoryChild);
+	    //Toast.makeText(this.mContext, temp.toString(), Toast.LENGTH_SHORT).show();
+		
+		return null;
+	}
+	
+	protected void onProgressUpdate(Integer... progress) {
+        
+    }
+
+    protected void onPostExecute(Long result) {
+        
+    }
+
+	
+
+}

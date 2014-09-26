@@ -1,0 +1,57 @@
+package co.uk.introapps.NinoMilano.Model;
+
+public class Item {
+
+	private String name;
+	private String category;
+	private String price;
+	private boolean isHeader;
+
+	public Item(String name, String category, String price) {
+		super();
+		this.name = name;
+		this.category = category;
+		this.price = price;
+	}
+	
+	public Item(String name, String category){
+		super();
+		this.name = name;
+		this.category = category;
+	}
+	
+	public Item(String category, boolean header){
+		super();
+		this.category = category;
+		this.isHeader = header;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	public String getPrice(){
+		return price;
+	}
+	public void setPrice(String price){
+		this.price = price;
+	}
+
+	public boolean getHeader() {
+		return isHeader;
+	}
+
+	public void setHeader(boolean isHeader) {
+		this.isHeader = isHeader;
+	}
+}

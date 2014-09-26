@@ -1,0 +1,45 @@
+package co.uk.introapps.NiniMilano.Database;
+
+import android.provider.BaseColumns;
+
+public class Offer {
+
+public static final class OfferItem implements BaseColumns{
+		
+		private OfferItem() {}
+		
+		public static final String TABLE_NAME = "Offer";
+		
+		public static final String OFFER_ID = "_id";
+		
+		public static final String OFFER_TYPE_ID = "OfferTypeID";
+		
+		public static final String DATE_CREATED = "DateCreated";
+		
+		public static final String OFFER_CODE = "OfferCode";
+		
+		public static final String DESCRIPTION = "Description";
+		
+		public static final String NOTE = "Note";
+		
+		public static final String ACTIVE = "Active";
+		
+		public static final String MONDAY = "Monday";
+		
+		public static final String TUESDAY = "Tuesday";
+		
+		public static final String WEDNESDAY = "Wednesday";
+		
+		public static final String THUESDAY = "Thursday";
+		
+		public static final String FRIDAY = "Friday";
+		
+		public static final String SATURDAY = "Saturday";
+		
+		public static final String SUNDAY = "Sunday";		
+		
+		public static final String DEFAULT_SORT_ORDER = Offer.OfferItem.OFFER_ID;
+		
+	}
+
+}

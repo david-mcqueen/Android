@@ -1,0 +1,82 @@
+package com.democo.expenses;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class ExpenseEntryActivity extends Activity {
+
+	private static final String TAG = "ExpenseEntryActivity";
+	
+	private EditText mDescription;
+	private Button mSaveButton;
+	//private int mExpenseId;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		
+		Log.i(TAG, "onCreate");
+		setContentView(R.layout.expenses_form);
+		
+		mDescription = (EditText) findViewById(R.id.expEdt_et_description);	
+		mSaveButton = (Button) findViewById(R.id.expEdt_bt_save);
+
+		String description = getIntent().getStringExtra(Constants.EXPENSE_DESCRIPTION);
+	  	
+	  	mDescription.setText(description);
+	  	
+		mSaveButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// Do something to save the data
+				Intent resultIntent = new Intent();
+				resultIntent.putExtra(Constants.EXPENSE_DESCRIPTION, mDescription.getText().toString());
+
+				setResult(Activity.RESULT_OK, resultIntent); 
+				finish();
+			}
+		});	  	
+		
+	}
+	
+    @Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		Log.i(TAG, "onPause");
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		Log.i(TAG, "onResume");
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Log.i(TAG, "onStart");
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		Log.i(TAG, "onStop");
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		Log.i(TAG, "onDestroy");
+	}		
+}

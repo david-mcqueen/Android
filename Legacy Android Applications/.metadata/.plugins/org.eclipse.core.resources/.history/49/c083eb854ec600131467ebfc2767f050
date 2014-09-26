@@ -1,0 +1,61 @@
+package co.uk.introapps.NinoMilano.Model;
+
+import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import java.util.ArrayList;
+
+import co.uk.introapps.NinoMilano.R;
+import co.uk.introapps.NinoMilano.R.id;
+import co.uk.introapps.NinoMilano.R.layout;
+
+public class MyAdapter extends ArrayAdapter<Item> {
+ 
+        private final Context context;
+        private final ArrayList<Item> itemsArrayList;
+        private static final String TAG = "Nino-MyAdapter";
+ 
+        public MyAdapter(Context context, ArrayList<Item> itemsArrayList) {
+ 
+            super(context, R.layout.list_row, itemsArrayList);
+            this.context = context;
+            this.itemsArrayList = itemsArrayList;
+        }
+ 
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            
+            LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+ 
+            View rowView;
+            
+            if(itemsArrayList.get(position).getHeader()){
+            	//If it is a header item, add a category header row
+            	
+            	rowView = inflater.inflate(R.layout.list_header, parent, false);
+            	TextView title = (TextView)rowView.findViewById(R.id.categoryName);
+    			title.setText(itemsArrayList.get(position).getCategory());
+    			
+            }else{
+            	rowView = inflater.inflate(R.layout.list_row, parent, false);
+            
+            	TextView treatment = (TextView)rowView.findViewById(R.id.treatment);
+            	TextView category = (TextView)rowView.findViewById(R.id.category);
+            	TextView price = (TextView)rowView.findViewById(R.id.price);
+			
+            	treatment.setText(itemsArrayList.get(position).getName());
+            	category.setText(itemsArrayList.get(position).getCategory());
+            	if(!itemsArrayList.get(position).getPrice().equals("0.0")){            		
+            		price.setText("£" + itemsArrayList.get(position).getPrice());
+            	}
+            }
+ 
+            return rowView;
+        }
+}
+

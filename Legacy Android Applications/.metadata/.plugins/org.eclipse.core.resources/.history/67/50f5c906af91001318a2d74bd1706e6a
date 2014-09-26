@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/signupLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/string_createNewAccount"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_weight="0"
+    	android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp" />
+
+    <TextView
+        android:id="@+id/textCurrentBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="@string/string_personalDetails"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp"
+    	android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/signupFirstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_firstName"
+        android:inputType="textPersonName"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp" />
+
+    <EditText
+        android:id="@+id/signupSurname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hint_surname"
+        android:inputType="textPersonName"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp" />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp" >
+
+        <RadioButton
+            android:id="@+id/signupMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_male" />
+
+        <RadioButton
+            android:id="@+id/signupFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_female" />
+
+	</RadioGroup>
+       
+    <TextView
+        android:id="@+id/textLoyaltyID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_accountDetails"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp"
+    	android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/signupEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:ems="10"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp" />
+
+   
+
+    <EditText
+        android:id="@+id/signupPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:ems="10"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp" />
+
+    <EditText
+        android:id="@+id/loginEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:ems="10"
+        android:hint="@string/hint_confirmPassword"
+        android:inputType="textPassword"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp" />
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hint_signup"
+        android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp"
+    	android:layout_marginTop="30dp" />
+
+</LinearLayout>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;MyBrowserActivity.java&apos; to &apos;Intents/src/co.uk.davemcqueen&apos;&#x0A;- Original project: &apos;Intents&apos;&#x0A;- Destination element: &apos;Intents/src/co.uk.davemcqueen&apos;&#x0A;- Original element: &apos;MyBrowserActivity.java&apos;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;co.uk.davemcqueen" element1="/src&lt;{MyBrowserActivity.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1327331731028" units="1" version="1.0"/>
+</session>

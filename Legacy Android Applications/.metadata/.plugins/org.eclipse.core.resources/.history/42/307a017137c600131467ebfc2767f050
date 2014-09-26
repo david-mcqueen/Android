@@ -1,0 +1,106 @@
+package FragmentHolder;
+
+import java.util.Calendar;
+
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import co.uk.introapps.NiniMilano.Database.Treatment;
+import co.uk.introapps.NiniMilano.Database.dbContentProvider;
+import co.uk.introapps.NinoMilano.MainActivity;
+import co.uk.introapps.NinoMilano.R;
+import co.uk.introapps.NinoMilano.Background.UpdateDatabase;
+import co.uk.introapps.NinoMilano.Fragment.FragmentPrices;
+
+public class FragmentPricesHolder extends Fragment {
+
+	public static final String ARG_SECTION_NUMBER = "section_number";
+	private static final String TAG = "Nino-FragmentPricesHolder";
+	public static final String NINO_PREFS = "NinoPrefs";
+
+	public FragmentPricesHolder() {
+	}
+
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView;
+
+		// --Load the main Fragment for Loyalty, which contains the replaceable
+		// placeholder
+		rootView = inflater.inflate(R.layout.holder_prices, container, false);
+
+
+		// Initalise the Fragment Transaction Manager
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+		if (!databaseUpdating() || false) {
+			Log.i(TAG, "Not updating DB");
+			//If the database is already up to date, then display the prices.
+			ft.replace(R.id.pricesFragment_placeholder, new FragmentPrices());
+			ft.commit();
+		}else{
+			//The prices are not up to date. The replace will be done on the callback (in TaskDone)
+			Log.i(TAG, "Updating DB");
+		}
+		
+		return rootView;
+	}
+
+
+	public boolean databaseUpdating(){
+	//	---Check if the database should be updated---
+		//Returns true if updating, else false.
+			MainActivity activity = (MainActivity) getActivity();
+			Calendar calendar = Calendar.getInstance();
+			//Get the shared preferences
+			SharedPreferences preferences = activity.getSharedPreferences(NINO_PREFS, 0);
+			boolean previouslyUpdated = preferences.getBoolean("previouslyUpdated", false);
+			boolean forceUpdate = preferences.getBoolean("forceUpdate", false);
+			int updatedDay = preferences.getInt("updatedDay", 1);
+			int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+			
+			//Check to see if there is data in the DB
+			String[] projection = {Treatment.TreatmentItem.TREATMENT_ID};
+			Cursor c = activity.getContentResolver().query(dbContentProvider.CONTENT_URI_TREATMENT, projection, null, null, Treatment.TreatmentItem.DEFAULT_SORT_ORDER);
+	
+			forceUpdate = true;
+			
+			Log.i(TAG, "Checking if the DB should be updated");
+			if(!previouslyUpdated //If it hasn't been previously updated.
+					||(dayOfYear - 7) >= updatedDay //Or if the previously updated day was 7 days ago or more
+					|| forceUpdate //Or if the user wants to force an update.
+					|| c.getCount() < 1) // Or if the treatments table is empty
+			{
+				Log.i(TAG, "Calling Asycn from Fragment Prices");
+		        
+				new UpdateDatabase(activity.getBaseContext()).execute();
+				
+				//After we have updated, save the new preferences
+				SharedPreferences.Editor preferencesEditor = preferences.edit();
+				preferencesEditor.putBoolean("previouslyUpdated", true);
+				preferencesEditor.putInt("updatedDay", dayOfYear);
+				preferencesEditor.putBoolean("forceUpdate", false);
+				
+				preferencesEditor.commit();
+				return true;
+			}
+			
+			c.close();
+			return false;
+		}
+	
+	public void taskDone(String returnVal) {
+	    //Do stuff once data has been loaded
+		Log.i(TAG, returnVal);
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.replace(R.id.pricesFragment_placeholder, new FragmentPrices());
+		ft.addToBackStack(null);
+		ft.commitAllowingStateLoss();
+	}
+}

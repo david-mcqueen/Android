@@ -1,0 +1,285 @@
+package co.uk.introapps.NinoMilano.Background;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+import co.uk.introapps.NiniMilano.Database.CategoryChild;
+import co.uk.introapps.NiniMilano.Database.CategoryFilter;
+import co.uk.introapps.NiniMilano.Database.CategoryParent;
+import co.uk.introapps.NiniMilano.Database.Treatment;
+import co.uk.introapps.NiniMilano.Database.dbContentProvider;
+import co.uk.introapps.NinoMilano.Fragment.FragmentPrices;
+
+public class UpdateDatabase extends AsyncTask<Void, Void, Void> {
+	
+	private static final String TAG = "Nino-Async UpdateDB";
+	
+	private final Context mContext;
+	
+	public UpdateDatabase(Context context){
+		super();
+		this.mContext = context;
+	}
+	
+	public void updateTreatments(){
+		Log.i(TAG, "Update Treatment Method");
+		
+		ContentValues inputValuesTreatment = new ContentValues();
+		
+		//JSON call to the data service. This is currently running in he main thread and needs putting into an async class
+		String dateCreated;
+		String name;
+		double price;
+		int treatmentID;
+		int categoryID;
+		String treatmentSrc="http://www.introapps.co.uk/Service/rest/Nino/Treatments/";
+		
+	    try{
+	    	//Delete all the previous data. This is getting replaced with the data from the data service
+	    	this.mContext.getContentResolver().delete(dbContentProvider.CONTENT_URI_TREATMENT, null, null);
+	    	Log.i(TAG, "Treatment Table Truncated");
+	    	
+	        URL url = new URL(treatmentSrc);
+	        URLConnection urlc = url.openConnection();
+	        BufferedReader bfr = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
+	        String line;
+	        while((line = bfr.readLine()) != null)
+	        {
+	        JSONArray jsa = new JSONArray(line);
+	        for(int i=0;i<jsa.length();i++)
+	           {
+	        		inputValuesTreatment.clear();
+	        		JSONObject jo = (JSONObject)jsa.get(i);
+	        		
+	        		dateCreated = jo.getString("DateCreated"); 
+	        		name = jo.getString("Name");
+	        		price = jo.getDouble("Price");
+	        		treatmentID = jo.getInt("TreatmentID");
+	        		categoryID = jo.getInt("ChildCategoryID");
+	        		
+	        		inputValuesTreatment.put(Treatment.TreatmentItem.TREATMENT_ID, treatmentID);
+	        		inputValuesTreatment.put(Treatment.TreatmentItem.NAME, name);
+	        		inputValuesTreatment.put(Treatment.TreatmentItem.PRICE, price);
+	        		inputValuesTreatment.put(Treatment.TreatmentItem.DATE_CREATED, dateCreated);
+	        		inputValuesTreatment.put(Treatment.TreatmentItem.CATEGORY_ID, categoryID);
+	        		
+	        		//Insert into the database
+	        		this.mContext.getContentResolver().insert(dbContentProvider.CONTENT_URI_TREATMENT, inputValuesTreatment);
+	           }
+	        }
+	    }
+	    catch(Exception e){
+	    	Log.w(TAG, "Error: " + e);
+	    }
+	    //End of the JSON call to web service 
+	    
+	    Log.i(TAG, "Updated Treatment");
+	}
+	
+	public void updateCategoryParent(){
+		Log.i(TAG, "Update Category-Parent Method");
+	
+		ContentValues inputValuesCategoryParent = new ContentValues();
+		
+		//JSON call to the data service. This is currently running in he main thread and needs putting into an async class
+		String dateCreated;
+		String name;
+		int categoryID;
+		boolean truncated = false;
+		String categoryParentSrc="http://introapps.co.uk/service/rest/nino/GetParentCategories/";
+        String line;
+		
+	    try{
+	    	//Delete all the previous data. This is getting replaced with the data from the data service
+	    	
+	        URL url = new URL(categoryParentSrc);
+	        URLConnection urlc = url.openConnection();
+	        BufferedReader bfr = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
+
+	        while((line = bfr.readLine()) != null)
+	        {
+	        	if (!truncated){
+	        		//only want to truncated the DB once. If the JSON has new data. Before new data is input.
+	        		this.mContext.getContentResolver().delete(dbContentProvider.CONTENT_URI_CATEGORY_PARENT, null, null);
+	    	    	Log.i(TAG, "Category-Parent Table Truncated");
+	        	}
+	        	
+	        JSONArray jsa = new JSONArray(line);
+	        for(int i=0;i<jsa.length();i++)
+	           {
+	        	inputValuesCategoryParent.clear();
+	        		JSONObject jo = (JSONObject)jsa.get(i);
+	        			dateCreated = jo.getString("DateCreated"); 
+	        			name = jo.getString("Name");
+	        			categoryID = jo.getInt("CategoryID");
+	        		
+	        		inputValuesCategoryParent.put(CategoryParent.CategoryParentItem.CATEGORY_ID, categoryID);
+	        		inputValuesCategoryParent.put(CategoryParent.CategoryParentItem.NAME, name);
+	        		inputValuesCategoryParent.put(CategoryParent.CategoryParentItem.DATE_CREATED, dateCreated);
+	        		
+	        		//Insert into the database
+	        		this.mContext.getContentResolver().insert(dbContentProvider.CONTENT_URI_CATEGORY_PARENT,
+	        				inputValuesCategoryParent);
+	           }
+	        }
+	    }
+	    catch(Exception e){
+	    	Log.w(TAG, "Error-Parent: " + e);
+	    }
+	    //End of the JSON call to web service 
+	  
+	    Log.i(TAG, "Updated Category-Parent");
+	}
+	
+	public void updateCategoryChild(){
+		Log.i(TAG, "Update Category-Child Method");
+		ContentValues inputValuesCategoryChild = new ContentValues();
+		
+		//JSON call to the data service. This is currently running in he main thread and needs putting into an async class
+		String dateCreated;
+		String name;
+		int categoryID;
+		int parentID;
+		String imageURL;
+		boolean truncated = false;
+		
+		String categoryChildSrc="http://introapps.co.uk/service/rest/nino/GetChildCategories/";
+		
+	    try{
+	    	//Delete all the previous data. This is getting replaced with the data from the data service
+	    	
+	    	
+	        URL url = new URL(categoryChildSrc);
+	        URLConnection urlc = url.openConnection();
+	        BufferedReader bfr = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
+	        String line;
+	        while((line = bfr.readLine()) != null)
+	        {
+	        	//only want to truncated the DB once. If the JSON has new data. Before new data is input.
+	        	if (!truncated){
+	        		this.mContext.getContentResolver().delete(dbContentProvider.CONTENT_URI_CATEGORY_CHILD, null, null);
+	    	    	Log.i(TAG, "Category-Child Table Truncated");
+	        	}
+	        	
+	        JSONArray jsa = new JSONArray(line);
+	        for(int i=0;i<jsa.length();i++)
+	           {
+	        	inputValuesCategoryChild.clear();
+	        		JSONObject jo = (JSONObject)jsa.get(i);
+	        			dateCreated = jo.getString("DateCreated"); 
+	        			name = jo.getString("Name");
+	        			categoryID = jo.getInt("CategoryID");
+	        			parentID = jo.getInt("ParentCategoryID");
+	        			imageURL = jo.getString("ImageURL");
+	        		
+	        		inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.CATEGORY_ID, categoryID);
+	        		inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.PARENT_ID, parentID);
+	        		inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.NAME, name);
+	        		inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.IMAGE_URL, imageURL);
+	        		inputValuesCategoryChild.put(CategoryChild.CategoryChildItem.DATE_CREATED, dateCreated);
+	        		
+	        		//Insert into the database
+	        		this.mContext.getContentResolver().insert(dbContentProvider.CONTENT_URI_CATEGORY_CHILD,
+	        				inputValuesCategoryChild);
+	           }
+	        }
+	    }
+	    catch(Exception e){
+	    	Log.w(TAG, "Error-Child: " + e);
+	    }
+	    //End of the JSON call to web service
+	    
+	    Log.i(TAG, "Updated Category-Child");
+	}
+	
+	
+	public void updateCategoryFilter(){
+		Log.i(TAG, "Update Category-Filter Method");
+		ContentValues inputValuesCategoryFilter = new ContentValues();
+		
+		//JSON call to the data service. This is currently running in he main thread and needs putting into an async class
+		int filterID;
+		int parentID;
+		int childID;
+		int treatmentID;
+		String categoryFilterSrc="";
+		boolean truncated = false;
+		
+	    try{
+	    	//Delete all the previous data. This is getting replaced with the data from the data service
+	    	
+	    	
+	        URL url = new URL(categoryFilterSrc);
+	        URLConnection urlc = url.openConnection();
+	        BufferedReader bfr = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
+	        String line;
+	        while((line = bfr.readLine()) != null)
+	        {
+	        	//only want to truncated the DB once. If the JSON has new data. Before new data is input.
+	        	if (!truncated){
+	        		this.mContext.getContentResolver().delete(dbContentProvider.CONTENT_URI_CATEGORY_FILTER, null, null);
+	    	    	Log.i(TAG, "Category-Filter Table Truncated");
+	        	}
+	        JSONArray jsa = new JSONArray(line);
+	        for(int i=0;i<jsa.length();i++)
+	           {
+	        	inputValuesCategoryFilter.clear();
+	        		JSONObject jo = (JSONObject)jsa.get(i);
+	        			filterID = jo.getInt("CategoryLinkID"); 
+	        			parentID = jo.getInt("ParentCategoryID");
+	        			childID = jo.getInt("ChildCategoryID");
+	        			treatmentID = jo.getInt("TreatmentID");
+	        		
+	        		inputValuesCategoryFilter.put(CategoryFilter.CategoryFilterItem.FILTER_ID, filterID);
+	        		inputValuesCategoryFilter.put(CategoryFilter.CategoryFilterItem.TREATMENT_ID, treatmentID);
+	        		inputValuesCategoryFilter.put(CategoryFilter.CategoryFilterItem.PARENT_ID, parentID);
+	        		inputValuesCategoryFilter.put(CategoryFilter.CategoryFilterItem.CHILD_ID, childID);
+	        		
+	        		//Insert into the database
+	        		this.mContext.getContentResolver().insert(dbContentProvider.CONTENT_URI_CATEGORY_FILTER,
+	        				inputValuesCategoryFilter);
+	           }
+	        }
+	    }
+	    catch(Exception e){
+	    	Log.w(TAG, "Error-Filter: " + e);
+	    }
+	    //End of the JSON call to web service
+	    
+	    Log.i(TAG, "Updated Category-Filter");
+	}
+	
+	@Override
+	protected Void doInBackground(Void... params) {
+		Log.i(TAG, "doInBackground");
+		updateTreatments();
+		updateCategoryParent();
+		updateCategoryChild(); 
+		//updateCategoryFilter();
+		return null;
+	}
+	
+	protected void onProgressUpdate(Integer... progress) {
+		Log.i(TAG, "onProgressUpdate");
+    }
+
+    protected void onPostExecute(Void result) {
+     //TODO Trigger an event so that we know the update has completed.
+    	Log.i(TAG, "onPostExecute");
+    	
+    	
+    	FragmentPrices fragment = new FragmentPrices();
+    	fragment.populateDate();
+    	fragment.taskDone("Success");
+    }
+
+}

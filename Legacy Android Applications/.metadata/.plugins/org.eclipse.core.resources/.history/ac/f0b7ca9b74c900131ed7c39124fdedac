@@ -1,0 +1,283 @@
+package co.uk.introapps.NinoMilano.Background;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import co.uk.introapps.NiniMilano.Database.Offer;
+import co.uk.introapps.NiniMilano.Database.dbContentProvider;
+import co.uk.introapps.NinoMilano.R;
+import co.uk.introapps.NinoMilano.Model.PricesCategory;
+import co.uk.introapps.NinoMilano.Model.RewardAdapter;
+import co.uk.introapps.NinoMilano.Model.RewardItem;
+
+public class DisplayOffers extends AsyncTask<Void, Void, Void> {
+	
+	private static final String TAG = "Nino-Async Display Offers";
+	
+	private final Context mContext;
+	private View mRootView;
+	private Activity mActivity;
+	private List<PricesCategory> catList;
+	private static final String NINO_PREFS = "NinoPrefs";
+
+	public DisplayOffers(Context context, View rootView, Activity activity){
+		super();
+		this.mContext = context;
+		this.mRootView = rootView;
+		this.mActivity = activity;
+	}
+
+	@Override
+	protected Void doInBackground(Void... arg0) {
+		// TODO Auto-generated method stub
+		
+		if (DBNeedsUpdating()){
+			updateOffers();
+		}
+		return null;
+	}
+	
+	protected void onPostExecute(Void result) {
+	     //TODO Trigger an event so that we know the update has completed.
+	    	Log.i(TAG, "onPostExecute");
+	    	showLoading(false);
+	    }
+	
+	
+	
+	private void showLoading(boolean toggle){
+		ExpandableListView exList = (ExpandableListView) mRootView.findViewById(R.id.expandableListView1);
+		ProgressBar progress = (ProgressBar) mRootView.findViewById(R.id.progressPrices);
+		
+		if(toggle){
+			progress.setVisibility(View.VISIBLE);
+			exList.setVisibility(View.INVISIBLE);
+		}else{
+			populateData();
+			progress.setVisibility(View.INVISIBLE);
+			exList.setVisibility(View.VISIBLE);
+		}
+		
+	}
+	
+	private void populateData(){
+		RewardAdapter adapter = new RewardAdapter(mActivity, generateData());
+	    ListView listView = (ListView) mRootView.findViewById(R.id.listRewards);
+	    listView.setAdapter(adapter);
+	}
+	
+	private ArrayList<RewardItem> generateData(){
+		boolean []days = {
+				true, //Monday
+				false,
+				true,
+				false,
+				false,
+				true,
+				true //Sunday
+		};
+		
+		ArrayList<RewardItem> items = new ArrayList<RewardItem>();
+	    items.add(new RewardItem("Available Offers", true));
+	    items.add(new RewardItem("Free Drink","All","0", true, days));
+	    items.add(new RewardItem("Wash, Cut & Finish","Womens","10"));
+	    items.add(new RewardItem("Dry Cut","Childrens","8"));
+	    
+	    items.add(new RewardItem("All Offers", true));
+		
+		return items;
+		}
+	
+	private boolean DBNeedsUpdating(){
+    	//Checks if the DB should be updated
+    	
+    	boolean result;
+    	
+		Calendar calendar = Calendar.getInstance();
+		
+		//Get the shared preferences
+		SharedPreferences preferences = mActivity.getSharedPreferences(NINO_PREFS, 0);
+		boolean previouslyUpdated = preferences.getBoolean("previouslyUpdated", false);
+		boolean forceUpdate = preferences.getBoolean("forceUpdate", false);
+		int updatedDay = preferences.getInt("updatedDay", 1);
+		int dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+		
+		//Check to see if there is data in the DB
+		String[] projection = {Offer.OfferItem.OFFER_ID};
+		Cursor c = mActivity.getContentResolver().query(dbContentProvider.CONTENT_URI_OFFER, projection, null, null, Offer.OfferItem.DEFAULT_SORT_ORDER);
+
+		//TODO Forceupdated used for debugging
+		forceUpdate = false;
+		
+		Log.i(TAG, "Checking if the DB should be updated");
+		if(!previouslyUpdated //If it hasn't been previously updated.
+				||(dayOfYear - 7) >= updatedDay //Or if the previously updated day was 7 days ago or more
+				|| forceUpdate //Or if the user wants to force an update.
+				|| c.getCount() < 1) // Or if the treatments table is empty
+		{
+			
+			//After we have updated, save the new preferences
+			SharedPreferences.Editor preferencesEditor = preferences.edit();
+			preferencesEditor.putBoolean("previouslyUpdated", true);
+			preferencesEditor.putInt("updatedDay", dayOfYear);
+			preferencesEditor.putBoolean("forceUpdate", false);
+			
+			preferencesEditor.commit();
+			
+			result =  true;
+		}else{
+			result =  false;
+		}
+		
+    	c.close();
+    	return result;
+    }
+	
+	public void updateOffers(){
+		Log.i(TAG, "Update Offers Method");
+		
+		ContentValues inputValuesOffer = new ContentValues();
+		
+		//JSON call to the data service. This is currently running in he main thread and needs putting into an async class
+		String dateCreated;
+		String name;
+		String description;
+		String note;
+		String code;
+		double price;
+		int offerID;
+		int offerTypeID;
+		
+		int active;
+		int monday;
+		int tuesday;
+		int wednesday;
+		int thursday;
+		int friday;
+		int saturday;
+		int sunday;
+		boolean truncated = false;
+		
+		String offerSrc="http://www.introapps.co.uk/Service/rest/Nino/GetOffers/";
+		
+	    try{
+	        URL url = new URL(offerSrc);
+	        URLConnection urlc = url.openConnection();
+	        BufferedReader bfr = new BufferedReader(new InputStreamReader(urlc.getInputStream()));
+	        String line;
+	        while((line = bfr.readLine()) != null)
+	        {
+	        	if(!truncated){
+	        		//Delete all the previous data. This is getting replaced with the data from the data service
+	        		//This only happens if data is retrieved.
+	    	    	this.mContext.getContentResolver().delete(dbContentProvider.CONTENT_URI_OFFER, null, null);
+	    	    	Log.i(TAG, "Offer Table Truncated");
+	    	    	truncated = true;
+	        	}
+	        JSONArray jsa = new JSONArray(line);
+	        for(int i=0;i<jsa.length();i++)
+	           {
+	        		inputValuesOffer.clear();
+	        		JSONObject jo = (JSONObject)jsa.get(i);
+	        		
+	        		dateCreated = jo.getString("DateCreated"); 
+	        		name = jo.getString("Name");
+	        		description = jo.getString("Description");
+	        		note = jo.getString("Note");
+	        		price = jo.getDouble("OfferPrice");
+	        		offerID = jo.getInt("OfferID");
+	        		offerTypeID = jo.getInt("OfferTypeID");
+	        		code = jo.getString("OfferCode");
+	        		
+	        		//The days come back as boolean, but we need to store as int in the DB so they need converting
+	        		if(jo.getBoolean("Active")){
+	        			active = 1;
+	        		}else{
+	        			active = 0;
+	        		}
+	        		if(jo.getBoolean("Monday")){
+	        			monday = 1;
+	        		}else{
+	        			monday = 0;
+	        		}
+	        		if(jo.getBoolean("Tuesday")){
+	        			tuesday = 1;
+	        		}else{
+	        			tuesday = 0;	
+	        		}
+	        		if (jo.getBoolean("Wednesday")){
+	        			wednesday = 1;
+	        		}else{
+	        			wednesday = 0;
+	        		}
+	        		if(jo.getBoolean("Thursday")){
+	        			thursday = 1;
+	        		}else{
+	        			thursday = 0;
+	        		}
+	        		if(jo.getBoolean("Friday")){
+	        			friday = 1;
+	        		}else{
+	        			friday = 0;
+	        		}
+	        		if(jo.getBoolean("Saturday")){
+	        			saturday = 1;
+	        		}else{
+	        			saturday = 0;
+	        		}
+	        		if(jo.getBoolean("Sunday")){
+	        			sunday = 1;
+	        		}else{
+	        			sunday = 0;
+	        		}      		
+	        		
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_ID, offerID);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_TYPE_ID, offerTypeID);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_NAME, name);
+	        		inputValuesOffer.put(Offer.OfferItem.DATE_CREATED, dateCreated);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_CODE, code);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_DESCRIPTION, description);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_NOTE, note);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_PRICE, price);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_ACTIVE, active);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_MONDAY, monday);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_TUESDAY, tuesday);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_WEDNESDAY, wednesday);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_THURSDAY, thursday);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_FRIDAY, friday);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_SATURDAY, saturday);
+	        		inputValuesOffer.put(Offer.OfferItem.OFFER_SUNDAY, sunday);
+	        		
+	        		//Insert into the database
+	        		this.mContext.getContentResolver().insert(dbContentProvider.CONTENT_URI_TREATMENT, inputValuesOffer);
+	           }
+	        }
+	    }
+	    catch(Exception e){
+	    	Log.w(TAG, "Error: " + e);
+	    }
+	    //End of the JSON call to web service 
+	    
+	    Log.i(TAG, "Updated Offer");
+	}
+
+}

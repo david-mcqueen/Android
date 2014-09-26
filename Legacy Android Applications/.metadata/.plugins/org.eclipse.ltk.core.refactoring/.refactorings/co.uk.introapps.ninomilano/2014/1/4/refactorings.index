@@ -1,0 +1,19 @@
+1390747047117	Delete element
+1390747386560	Extracts string 'null' into R.string.hint_email
+1390747520775	Extracts string 'null' into R.string.hint_firstName
+1390747568133	Extracts string 'null' into R.string.hint_surname
+1390747733114	Extracts string 'null' into R.string.hint_male
+1390747750016	Extracts string 'null' into R.string.hint_female
+1390748033623	Extracts string 'null' into R.string.hint_signup
+1390750551771	Extracts string 'null' into R.string.string_createNewAccount
+1390753789483	Extracts string 'null' into R.string.hint_password
+1390753815000	Extracts string 'null' into R.string.hint_confirmPassword
+1390753902840	Extracts string 'null' into R.string.string_personalDetails
+1390754013217	Extracts string 'null' into R.string.string_accountDetails
+1390756475198	Extracts string 'null' into R.string.hint_login
+1390756527973	Rename field 'signupButton'
+1390756582546	Rename resource 'fragment_loyalty.xml'
+1390756601482	Rename resource 'signup.xml'
+1390756814210	Rename field 'btnLoyaltyLogIn'
+1390756824338	Rename field 'btnLoyaltySignUp'
+1390757518730	Rename type 'testFragment'

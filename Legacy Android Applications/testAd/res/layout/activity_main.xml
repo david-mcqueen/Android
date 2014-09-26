@@ -1,0 +1,12 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+   <com.mobfox.sdk.MobFoxView
+       android:id="@+id/mobFoxView"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       publisherId="e4b42e54238276520bcafa1d17a265e0" />
+
+</RelativeLayout>

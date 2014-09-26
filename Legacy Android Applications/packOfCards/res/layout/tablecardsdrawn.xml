@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+<TableRow
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView 
+        android:layout_width="60dp"
+        android:text="" />
+    <TextView
+        android:layout_width="30dp"
+        android:text=" A" 
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="30dp"
+        android:text=" 2" 
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="30dp"
+        android:text=" 3" 
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="30dp"
+        android:text=" 4"
+        android:textSize="15sp" />
+    <TextView
+        android:layout_width="30dp"
+        android:text=" 5"
+        android:textSize="15sp" />
+    <TextView
+        android:layout_width="30dp"
+        android:text=" 6"
+        android:textSize="15sp" />
+    <TextView
+        android:layout_width="30dp"
+        android:text=" 7" 
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="30dp"
+        android:text=" 8" 
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="30dp"
+        android:text=" 9"
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="30dp"
+        android:text="10"
+        android:textSize="15sp"/>
+    <TextView
+        android:layout_width="30dp"
+        android:text=" J"
+        android:textSize="15sp"/>
+    <TextView 
+        android:layout_width="30dp"
+        android:text="Q"
+        android:textSize="15sp"/>
+    <TextView 
+        android:layout_width="30dp"
+        android:text="K"
+        android:textSize="15sp"/>
+</TableRow>
+<TableRow
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#DBDBDB"
+     >
+    <TextView 
+        android:minHeight="30dp"
+        android:text="S"
+        android:textColor="#000000"
+   		android:textSize="25sp" 
+         />
+    <TextView
+        android:id="@+id/txt1"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt2"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt3"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt4"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt5"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt6"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt7"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt8"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt9"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt10"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt11"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView 
+        android:id ="@+id/txt12"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView 
+        android:id ="@+id/txt13"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+</TableRow>
+<TableRow
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#FF0000">
+    <TextView 
+        android:minHeight="30dp"
+        android:text="D"  
+        android:textColor="#000000"
+   		android:textSize="25sp" />
+    <TextView
+        android:id ="@+id/txt14"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt15"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt16"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt17"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt18"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt19"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt20"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt21"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt22"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt23"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt24"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView 
+        android:id ="@+id/txt25"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView 
+        android:id ="@+id/txt26"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+</TableRow>
+<TableRow
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#DBDBDB">
+    <TextView 
+         android:minHeight="30dp"
+        android:text="H"
+        android:textColor="#000000"
+   		android:textSize="25sp" />
+    <TextView
+        android:id ="@+id/txt27"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt28"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt29"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt30"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt31"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt32"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt33"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt34"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt35"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt36"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt37"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView 
+        android:id ="@+id/txt38"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView 
+        android:id ="@+id/txt39"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+</TableRow>
+<TableRow
+    
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#FF0000">
+    <TextView 
+        android:minHeight="30dp"
+        android:text="C"
+        android:textColor="#000000"
+   		android:textSize="25sp"/>
+    <TextView
+        android:id ="@+id/txt40"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt41"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt42"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt43"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt44"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt45"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt46"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt47"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt48"
+        android:text="" 
+        android:textColor="#000000"
+   		android:textSize="20sp"/>
+    <TextView
+        android:id ="@+id/txt49"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView
+        android:id ="@+id/txt50"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView 
+        android:id ="@+id/txt51"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+    <TextView 
+        android:id ="@+id/txt52"
+        android:text=""
+        android:textColor="#000000"
+   		android:textSize="20sp" />
+</TableRow>
+<TableRow>
+    <TextView
+        android:text="Cards \nleft In\ndeck: "
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"/>
+		
+		<TextView
+		android:layout_marginTop="35dp"
+    	android:id="@+id/txtRemainingCards"
+        android:text=""
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"/>
+</TableRow>
+</TableLayout>

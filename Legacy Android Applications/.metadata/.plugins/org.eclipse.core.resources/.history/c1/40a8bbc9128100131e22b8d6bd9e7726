@@ -1,0 +1,114 @@
+package co.uk.introapps.NinoMilano;
+
+import co.uk.introapps.NinoMilano.DBHelper;
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+
+public class dbContentProvider extends ContentProvider{
+	/*
+	 * Content provider for the application
+	 * Provides internal & external access to the database
+	 */
+	//Set the authority and content URI
+	public static final String PROVIDER_NAME = "co.uk.introapps.NinoMilano.provider";
+	public static final String AUTHORITY = "content://" + PROVIDER_NAME + "/Treatment";
+	public static final Uri CONTENT_URI = Uri.parse(AUTHORITY);
+	DBHelper mDBHelper;
+	SQLiteDatabase db;
+	
+	private static final int TREATMENT = 1;
+	private static final int CATEGORY_PARENT = 2;
+	private static final int CATEGORY_CHILD = 3;
+	
+	private static final UriMatcher sURIMatcher;
+	
+	static{
+		sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+		sURIMatcher.addURI(PROVIDER_NAME, "Treatment", TREATMENT);
+		sURIMatcher.addURI(PROVIDER_NAME, "CategoryParent", CATEGORY_PARENT);
+		sURIMatcher.addURI(PROVIDER_NAME, "CategoryChild", CATEGORY_CHILD);
+	}
+
+	
+		
+	@Override
+	public boolean onCreate() {
+		mDBHelper = new DBHelper(getContext());
+		return true; //successfully created
+	}
+	
+	//Determines if asking for a specific item, or a directory
+	@Override
+	public String getType(Uri uri) {
+		if (uri.getLastPathSegment() == null)
+		{
+			return "vnd.andoid.cursor.item/vnd.co.uk.introapps.status";
+		}else {
+			return "vnd.andoid.cursor.dir/vnd.co.uk.introapps.status";
+		}
+	}
+		
+
+	@Override
+	public int delete(Uri arg0, String arg1, String[] arg2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+	@Override
+	public Uri insert(Uri uri, ContentValues values) {
+		db = mDBHelper.getWritableDatabase();
+		
+		Uri _uri = null;
+		long id;
+		switch (sURIMatcher.match(uri)){
+		case TREATMENT:
+			id = db.insert(Treatment.TreatmentItem.TABLE_NAME, null, values);
+			
+			//if it was successful, return the position of the new event
+			if (id != -1){
+				_uri = Uri.withAppendedPath(uri, Long.toString(id));
+			}
+		case CATEGORY_PARENT:
+			id = db.insert(CategoryParent.CategoryParentItem.TABLE_NAME, null, values);
+			
+			//if it was successful, return the position of the new event
+			if (id != -1){
+				_uri = Uri.withAppendedPath(uri, Long.toString(id));
+			}
+		case CATEGORY_CHILD:
+			id = db.insert(CategoryChild.CategoryChildItem.TABLE_NAME, null, values);
+			
+			//if it was successful, return the position of the new event
+			if (id != -1){
+				_uri = Uri.withAppendedPath(uri, Long.toString(id));
+			}
+		}
+		
+		return _uri;
+		
+	}
+
+	
+
+	@Override
+	public Cursor query(Uri arg0, String[] arg1, String arg2, String[] arg3,
+			String arg4) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+}

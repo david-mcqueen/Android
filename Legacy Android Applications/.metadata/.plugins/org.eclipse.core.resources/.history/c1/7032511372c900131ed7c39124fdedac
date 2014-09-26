@@ -1,0 +1,182 @@
+package co.uk.introapps.NiniMilano.Database;
+
+import co.uk.introapps.NiniMilano.Database.Treatment.TreatmentItem;
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.net.Uri;
+
+public class dbContentProvider extends ContentProvider{
+	/*
+	 * Content provider for the application
+	 * Provides internal & external access to the database
+	 */
+	//Set the authority and content URI
+	public static final String PROVIDER_NAME = "co.uk.introapps.NinoMilano.provider";
+	public static final String AUTHORITY = "content://" + PROVIDER_NAME;
+	public static final Uri CONTENT_URI_TREATMENT = Uri.parse(AUTHORITY + "/Treatment");
+	public static final Uri CONTENT_URI_CATEGORY_PARENT = Uri.parse(AUTHORITY + "/CategoryParent");
+	public static final Uri CONTENT_URI_CATEGORY_CHILD = Uri.parse(AUTHORITY + "/CategoryChild");
+	public static final Uri CONTENT_URI_CATEGORY_FILTER = Uri.parse(AUTHORITY + "/CategoryFilter");
+	public static final Uri CONTENT_URI_OFFER = Uri.parse(AUTHORITY + "/Offer");
+	static DBHelper mDBHelper;
+	static SQLiteDatabase db;
+	
+	private static final int TREATMENT = 0;
+	private static final int CATEGORY_PARENT = 1;
+	private static final int CATEGORY_CHILD = 2;
+	private static final int CATEGORY_FILTER = 3;
+	private static final int OFFER = 4;
+	
+	private static final UriMatcher sURIMatcher;
+	
+	static{
+		sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+		sURIMatcher.addURI(PROVIDER_NAME, "Treatment", TREATMENT);
+		sURIMatcher.addURI(PROVIDER_NAME, "CategoryParent", CATEGORY_PARENT);
+		sURIMatcher.addURI(PROVIDER_NAME, "CategoryChild", CATEGORY_CHILD);
+		sURIMatcher.addURI(PROVIDER_NAME, "CategoryFilter", CATEGORY_FILTER);
+		sURIMatcher.addURI(PROVIDER_NAME, "Offer", OFFER);
+	}
+
+	@Override
+	public boolean onCreate() {
+		mDBHelper = new DBHelper(getContext());
+		return true; //successfully created
+	}
+	
+	//Determines if asking for a specific item, or a directory
+	@Override
+	public String getType(Uri uri) {
+		if (uri.getLastPathSegment() == null)
+		{
+			return "vnd.andoid.cursor.item/vnd.co.uk.introapps.status";
+		}else {
+			return "vnd.andoid.cursor.dir/vnd.co.uk.introapps.status";
+		}
+	}
+		
+
+	@Override
+	public int delete(Uri uri, String whereClause, String[] whereArgs) {
+		db = mDBHelper.getWritableDatabase();
+		long id;
+		switch (sURIMatcher.match(uri)){
+		case TREATMENT:
+			id = db.delete(Treatment.TreatmentItem.TABLE_NAME, whereClause, whereArgs);
+			break;
+		case CATEGORY_PARENT:
+			id = db.delete(CategoryParent.CategoryParentItem.TABLE_NAME, whereClause, whereArgs);
+			break;
+		case CATEGORY_CHILD:
+			id = db.delete(CategoryChild.CategoryChildItem.TABLE_NAME, whereClause, whereArgs);
+			break;
+		case CATEGORY_FILTER:
+			id = db.delete(CategoryFilter.CategoryFilterItem.TABLE_NAME, whereClause, whereArgs);
+			break;
+		case OFFER:
+			id = db.delete(Offer.OfferItem.TABLE_NAME, whereClause, whereArgs);
+		}		
+		return 0;
+	}
+
+	
+	@Override
+	public Uri insert(Uri uri, ContentValues values) {
+		db = mDBHelper.getWritableDatabase();
+		
+		Uri _uri = null;
+		long id;
+		switch (sURIMatcher.match(uri)){
+		case TREATMENT:
+			id = db.insert(Treatment.TreatmentItem.TABLE_NAME, null, values);
+			
+			//if it was successful, return the position of the new event
+			if (id != -1){
+				_uri = Uri.withAppendedPath(uri, Long.toString(id));
+			}
+			break;
+		case CATEGORY_PARENT:
+			id = db.insert(CategoryParent.CategoryParentItem.TABLE_NAME, null, values);
+			
+			//if it was successful, return the position of the new event
+			if (id != -1){
+				_uri = Uri.withAppendedPath(uri, Long.toString(id));
+			}
+			break;
+		case CATEGORY_CHILD:
+			id = db.insert(CategoryChild.CategoryChildItem.TABLE_NAME, null, values);
+			
+			//if it was successful, return the position of the new event
+			if (id != -1){
+				_uri = Uri.withAppendedPath(uri, Long.toString(id));
+			}
+			break;
+		case CATEGORY_FILTER:
+			id = db.insert(CategoryFilter.CategoryFilterItem.TABLE_NAME, null, values);
+			
+			//if it was successful, return the position of the new event
+			if (id != -1){
+				_uri = Uri.withAppendedPath(uri, Long.toString(id));
+			}
+			break;
+		case OFFER:
+			id = db.insert(Offer.OfferItem.TABLE_NAME, null, values);
+			
+			//if it was successful, return the position of the new event
+			if (id != -1){
+				_uri = Uri.withAppendedPath(uri, Long.toString(id));
+			}
+			break;
+		}
+		return _uri;
+	}
+
+	@Override
+	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+			String sortOrder) {
+		// Constructs a new query builder and sets its table name
+	       SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+	       
+	       switch (sURIMatcher.match(uri)){
+			case TREATMENT:
+				qb.setTables(Treatment.TreatmentItem.TABLE_NAME);
+				break;
+			case CATEGORY_PARENT:
+				qb.setTables(CategoryParent.CategoryParentItem.TABLE_NAME);
+				break;
+			case CATEGORY_CHILD:
+				qb.setTables(CategoryChild.CategoryChildItem.TABLE_NAME);
+				break;
+			case CATEGORY_FILTER:
+				qb.setTables(CategoryFilter.CategoryFilterItem.TABLE_NAME);
+				break;
+			case OFFER:
+				qb.setTables(Offer.OfferItem.TABLE_NAME);
+				break;
+			}
+	       
+	       SQLiteDatabase db = mDBHelper.getReadableDatabase();
+	       
+	       return qb.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+		
+	}
+
+	@Override
+	public int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+	public static Cursor getData(String query, String[] selectionArgs){
+		db = mDBHelper.getReadableDatabase();
+		
+		return db.rawQuery(query, selectionArgs);
+		
+	}
+
+}

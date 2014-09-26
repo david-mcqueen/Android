@@ -1,0 +1,174 @@
+package co.uk.introapps.NiniMilano.Database;
+import co.uk.introapps.NiniMilano.Database.Treatment.TreatmentItem;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+
+public class DBHelper extends SQLiteOpenHelper{
+
+	private static final String TAG = "DBHelper";
+	
+	private static final String DBName = "NinoMilano.db";
+	private static final int DBVersion = 1;
+	
+	
+	//	---Treatments Table ---
+	//Create strings to hold the treatment table columns etc
+	public static final String TABLE_TREATMENT = Treatment.TreatmentItem.TABLE_NAME;
+	public static final String COLUMN_TREATMENT_ID = Treatment.TreatmentItem.TREATMENT_ID;
+	public static final String COLUMN_TREATMENT_CATEGORY_ID = Treatment.TreatmentItem.CATEGORY_ID;
+	public static final String COLUMN_TREATMENT_NAME = Treatment.TreatmentItem.NAME;
+	public static final String COLUMN_TREATMENT_DATE_CREATED = Treatment.TreatmentItem.DATE_CREATED;
+	public static final String COLUMN_TREATMENT_PRICE = Treatment.TreatmentItem.PRICE;
+	public static final String COLUMN_TREATMENT_PRICE_TO = Treatment.TreatmentItem.PRICE_TO;
+	public static final String COLUMN_TREATMENT_RANGED_PRICE = Treatment.TreatmentItem.RANGED_RICE;
+	public static final String COLUMN_TREATMENT_BY_QUOTATION = Treatment.TreatmentItem.BY_QUOTATION;
+	public static final String COLUMN_TREATMENT_COMPLIMENTARY = Treatment.TreatmentItem.COMPLIMENTARY;
+	
+	//the query to create the treatment table, if it doesn't already exist.
+	//Wont be using any constraints / keys as this is all enforced on the service where this is populated from.
+	private static final String CreateDBTable_Treatment = "CREATE TABLE "
+			+ TABLE_TREATMENT + " ("
+			+ COLUMN_TREATMENT_ID + " INTEGER, "
+			+ COLUMN_TREATMENT_CATEGORY_ID + " INTEGER, "
+			+ COLUMN_TREATMENT_NAME + " TEXT, "
+			+ COLUMN_TREATMENT_PRICE + " TEXT, "
+			+ COLUMN_TREATMENT_PRICE_TO + " TEXT, "
+			+ COLUMN_TREATMENT_RANGED_PRICE + " INTEGER, "
+			+ COLUMN_TREATMENT_BY_QUOTATION + " INTEGER, "
+			+ COLUMN_TREATMENT_COMPLIMENTARY + " INTEGER, "
+			+ COLUMN_TREATMENT_DATE_CREATED + " TEXT"
+			+ ");";
+	
+		
+	//	---CategoryParent Table ---
+	//Create strings to hold the CategoryParent table columns etc
+	public static final String TABLE_CATEGORY_PARENT = CategoryParent.CategoryParentItem.TABLE_NAME;
+	public static final String COLUMN_CATEGORY_PARENT_ID = CategoryParent.CategoryParentItem.CATEGORY_ID;
+	public static final String COLUMN_CATEGORY_PARENT_NAME = CategoryParent.CategoryParentItem.NAME;
+	public static final String COLUMN_CATEGORY_PARENT_DATE_CREATED = CategoryParent.CategoryParentItem.DATE_CREATED;
+	
+	private static final String CreateDBTable_CategoryParent = "CREATE TABLE "
+			+ TABLE_CATEGORY_PARENT + " ("
+			+ COLUMN_CATEGORY_PARENT_ID + " INTEGER, "
+			+ COLUMN_CATEGORY_PARENT_NAME + " TEXT, "
+			+ COLUMN_CATEGORY_PARENT_DATE_CREATED + " TEXT"
+			+ ");";
+	
+	
+	//	---CategoryChild Table---
+	//Create strings to hold the CategoryParent table columns etc
+	public static final String TABLE_CATEGORY_CHILD = CategoryChild.CategoryChildItem.TABLE_NAME;
+	public static final String COLUMN_CATEGORY_CHILD_ID = CategoryChild.CategoryChildItem.CATEGORY_ID;
+	public static final String COLUMN_CATEGORY_CHILD_PARENT_ID = CategoryChild.CategoryChildItem.PARENT_ID;
+	public static final String COLUMN_CATEGORY_CHILD_NAME = CategoryChild.CategoryChildItem.NAME;
+	public static final String COLUMN_CATEGORY_CHILD_DATE_CREATED = CategoryChild.CategoryChildItem.DATE_CREATED;
+	public static final String COLUMN_CATEGORY_CHILD_IMAGE_URL = CategoryChild.CategoryChildItem.IMAGE_URL;
+	
+	private static final String CreateDBTable_CategoryChild = "CREATE TABLE "
+			+ TABLE_CATEGORY_CHILD + " ("
+			+ COLUMN_CATEGORY_CHILD_ID + " INTEGER, "
+			+ COLUMN_CATEGORY_CHILD_PARENT_ID + " INTEGER, "
+			+ COLUMN_CATEGORY_CHILD_NAME + " TEXT, "
+			+ COLUMN_CATEGORY_CHILD_DATE_CREATED + " TEXT, "
+			+ COLUMN_CATEGORY_CHILD_IMAGE_URL + " TEXT"
+			+ ");";
+	
+	//	---CategoryFilter table---
+	//Create strings to hold the CategoryParent table columns etc
+	public static final String TABLE_CATEGORY_FILTER = CategoryFilter.CategoryFilterItem.TABLE_NAME;
+	public static final String COLUMN_CATEGORY_FILTER_ID = CategoryFilter.CategoryFilterItem.FILTER_ID;
+	public static final String COLUMN_CATEGORY_FILTER_PARENT_ID = CategoryFilter.CategoryFilterItem.PARENT_ID;
+	public static final String COLUMN_CATEGORY_FILTER_CHILD_ID = CategoryFilter.CategoryFilterItem.CHILD_ID;
+	public static final String COLUMN_CATEGORY_FILTER_TREATMENT_ID = CategoryFilter.CategoryFilterItem.TREATMENT_ID;
+	
+	private static final String CreateDBTable_CategoryFilter = "CREATE TABLE "
+			+ TABLE_CATEGORY_FILTER + " ("
+			+ COLUMN_CATEGORY_FILTER_ID + " INTEGER, "
+			+ COLUMN_CATEGORY_FILTER_PARENT_ID + " INTEGER, "
+			+ COLUMN_CATEGORY_FILTER_CHILD_ID + " INTEGER, "
+			+ COLUMN_CATEGORY_FILTER_TREATMENT_ID + " INTEGER"
+			+ ");";
+	
+	
+//	---Offer Table---
+	//Create strings to hold the CategoryParent table columns etc
+	public static final String TABLE_OFFER = Offer.OfferItem.TABLE_NAME;
+	public static final String COLUMN_OFFER_ID = Offer.OfferItem.OFFER_ID;
+	public static final String COLUMN_OFFER_TYPE_ID = Offer.OfferItem.OFFER_TYPE_ID;
+	public static final String COLUMN_OFFER_DATE_CREATED = Offer.OfferItem.DATE_CREATED;
+	public static final String COLUMN_OFFER_CODE = Offer.OfferItem.OFFER_CODE;
+	public static final String COLUMN_OFFER_DESCRIPTION = Offer.OfferItem.OFFER_DESCRIPTION;
+	public static final String COLUMN_OFFER_NOTE = Offer.OfferItem.OFFER_NOTE;
+	public static final String COLUMN_OFFER_ACTIVE = Offer.OfferItem.OFFER_ACTIVE;
+	public static final String COLUMN_OFFER_MONDAY = Offer.OfferItem.OFFER_MONDAY;
+	public static final String COLUMN_OFFER_TUESDAY = Offer.OfferItem.OFFER_TUESDAY;
+	public static final String COLUMN_OFFER_WEDNESDAY = Offer.OfferItem.OFFER_WEDNESDAY;
+	public static final String COLUMN_OFFER_THURSDAY = Offer.OfferItem.OFFER_THURSDAY;
+	public static final String COLUMN_OFFER_FRIDAY = Offer.OfferItem.OFFER_FRIDAY;
+	public static final String COLUMN_OFFER_SATURDAY = Offer.OfferItem.OFFER_SATURDAY;
+	public static final String COLUMN_OFFER_SUNDAY = Offer.OfferItem.OFFER_SUNDAY;
+	
+	
+	private static final String CreateDBTable_Offer = "CREATE TABLE "
+			+ TABLE_OFFER + " ("
+			+ COLUMN_OFFER_ID + " INTEGER, "
+			+ COLUMN_OFFER_TYPE_ID + " INTEGER, "
+			+ COLUMN_OFFER_DATE_CREATED + " TEXT, "
+			+ COLUMN_OFFER_DESCRIPTION + " TEXT, "
+			+ COLUMN_OFFER_NOTE + " TEXT, "
+			+ COLUMN_OFFER_ACTIVE + " INTEGER, "
+			+ COLUMN_OFFER_MONDAY + " INTEGER, "
+			+ COLUMN_OFFER_TUESDAY + " INTEGER, "
+			+ COLUMN_OFFER_WEDNESDAY + " INTEGER, "
+			+ COLUMN_OFFER_THURSDAY + " INTEGER, "
+			+ COLUMN_OFFER_FRIDAY + " INTEGER, "
+			+ COLUMN_OFFER_SATURDAY + " INTEGER, "
+			+ COLUMN_OFFER_SUNDAY + " INTEGER"
+			+ ");";	
+	
+	public DBHelper(Context context)
+	{
+	super (context, DBName, null, DBVersion);
+	}
+	
+	public DBHelper(Context context, boolean testMode)
+	{
+		super(context, null, null, DBVersion);
+	}
+	
+	
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		//If the database's don't exist, create them using the query's made above.
+		
+		//	---Treatment Table---
+		db.execSQL(CreateDBTable_Treatment); 
+		Log.w(TAG, CreateDBTable_Treatment + " created");
+		
+		//	---Category Parent Table---
+		db.execSQL(CreateDBTable_CategoryParent); 
+		Log.w(TAG, CreateDBTable_CategoryParent + " created");
+		
+		//	---Category Child Table---
+		db.execSQL(CreateDBTable_CategoryChild); 
+		Log.w(TAG, CreateDBTable_CategoryChild + " created");
+		
+		//	---Category Filter Table---
+		db.execSQL(CreateDBTable_CategoryFilter); 
+		Log.w(TAG, CreateDBTable_CategoryFilter + " created");
+		
+		//	---Offer Table---
+		db.execSQL(CreateDBTable_Offer); 
+		Log.w(TAG, CreateDBTable_Offer + " created");
+	}
+	
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// TODO Auto-generated method stub
+	}
+	
+
+}

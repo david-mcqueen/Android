@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory 
+        android:title="Location"
+        android:key="location_category">
+        <CheckBoxPreference
+            android:key="display_location"
+            android:summary="Enable event location by default"
+            android:title="Location"
+            android:defaultValue="true">
+        </CheckBoxPreference>
+        
+        <ListPreference
+            android:key="location_format"
+            android:title="Location format"
+            android:summary="How should the location be displayed"
+            android:defaultValue="city"
+            android:entries="@array/location"
+            android:entryValues="@array/locationValues"
+            android:dependency="display_location">
+        </ListPreference>
+        
+        
+    </PreferenceCategory>
+</PreferenceScreen>

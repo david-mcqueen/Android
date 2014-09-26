@@ -1,0 +1,1 @@
+Case:2 - Moved all of the prices list into an Async method, which is much smoother and nicer.

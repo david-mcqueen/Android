@@ -1,0 +1,114 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf320
+{\fonttbl\f0\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red127\green0\blue85;\red0\green0\blue192;\red42\green0\blue255;
+\red100\green100\blue100;\red63\green127\blue95;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs22 \cf2 package\cf0  co.uk.davemcqueen.barcodeScanner;\
+\
+\cf2 import\cf0  android.content.ContentValues;\
+\cf2 import\cf0  android.content.Context;\
+\cf2 import\cf0  android.database.Cursor;\
+\cf2 import\cf0  android.database.SQLException;\
+\cf2 import\cf0  android.database.sqlite.SQLiteDatabase;\
+\cf2 import\cf0  android.database.sqlite.SQLiteOpenHelper;\
+\cf2 import\cf0  android.util.Log;\
+\
+\cf2 public\cf0  \cf2 class\cf0  DBAdapter \{\
+    \cf2 public\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 KEY_ROWID\cf0  = \cf4 "_id"\cf0 ;\
+    \cf2 public\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 KEY_NAME\cf0  = \cf4 "product_name"\cf0 ;\
+    \cf2 public\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 KEY_BARCODE\cf0  = \cf4 "product_barcode"\cf0 ;\
+    \cf2 public\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 KEY_ALLERGYS\cf0  = \cf4 "product_allergys"\cf0 ;\
+    \cf2 public\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 KEY_INGREDIANTS\cf0  = \cf4 "product_ingrediants"\cf0 ;\
+    \cf2 private\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 TAG\cf0  = \cf4 "DBAdapter"\cf0 ;\
+    \
+    \cf2 private\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 DATABASE_NAME\cf0  = \cf4 "MyDB2"\cf0 ;\
+    \cf2 private\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 DATABASE_TABLE\cf0  = \cf4 "products"\cf0 ;\
+    \cf2 private\cf0  \cf2 static\cf0  \cf2 final\cf0  \cf2 int\cf0  \cf3 DATABASE_VERSION\cf0  = 2;\
+\
+    \cf2 private\cf0  \cf2 static\cf0  \cf2 final\cf0  String \cf3 DATABASE_CREATE\cf0  =\
+        \cf4 "create table "\cf0 + \cf3 DATABASE_TABLE\cf0  + \cf4 "(_id integer primary key autoincrement, "\cf0  +\
+        \cf3 KEY_NAME\cf0  + \cf4 " text not null, "\cf0  +\
+        \cf3 KEY_BARCODE\cf0 + \cf4 " integer unique,"\cf0  +\
+        \cf3 KEY_ALLERGYS\cf0 + \cf4 " product_allergys text,"\cf0  +\
+        \cf3 KEY_INGREDIANTS\cf0 + \cf4 " product_ingrediants text not null);"\cf0 ;\
+        \
+    \cf2 private\cf0  \cf2 final\cf0  Context \cf3 context\cf0 ;    \
+\
+    \cf2 private\cf0  DatabaseHelper \cf3 DBHelper\cf0 ;\
+    \cf2 private\cf0  SQLiteDatabase \cf3 db\cf0 ;\
+\
+    \cf2 public\cf0  DBAdapter(Context ctx) \
+    \{\
+        \cf2 this\cf0 .\cf3 context\cf0  = ctx;\
+        \cf3 DBHelper\cf0  = \cf2 new\cf0  DatabaseHelper(\cf3 context\cf0 );\
+    \}\
+        \
+    \cf2 private\cf0  \cf2 static\cf0  \cf2 class\cf0  DatabaseHelper \cf2 extends\cf0  SQLiteOpenHelper \
+    \{\
+        DatabaseHelper(Context context) \
+        \{\
+            \cf2 super\cf0 (context, \cf3 DATABASE_NAME\cf0 , \cf2 null\cf0 , \cf3 DATABASE_VERSION\cf0 );\
+        \}\
+\
+        \cf5 @Override\cf0 \
+        \cf2 public\cf0  \cf2 void\cf0  onCreate(SQLiteDatabase db) \
+        \{\
+        	\cf2 try\cf0  \{\
+        		db.execSQL(\cf3 DATABASE_CREATE\cf0 );	\
+        	\} \cf2 catch\cf0  (SQLException e) \{\
+        		e.printStackTrace();\
+        	\}\
+        \}\
+\
+        \cf5 @Override\cf0 \
+        \cf2 public\cf0  \cf2 void\cf0  onUpgrade(SQLiteDatabase db, \cf2 int\cf0  oldVersion, \cf2 int\cf0  newVersion) \
+        \{\
+            Log.w(\cf3 TAG\cf0 , \cf4 "Upgrading database from version "\cf0  + oldVersion + \cf4 " to "\cf0 \
+                    + newVersion + \cf4 ", which will destroy all old data"\cf0 );\
+            db.execSQL(\cf4 "DROP TABLE IF EXISTS products"\cf0 );\
+            onCreate(db);\
+        \}\
+    \}    \
+\
+    \cf6 //---opens the database---\cf0 \
+    \cf2 public\cf0  DBAdapter open() \cf2 throws\cf0  SQLException \
+    \{\
+        \cf3 db\cf0  = \cf3 DBHelper\cf0 .getWritableDatabase();\
+        \cf2 return\cf0  \cf2 this\cf0 ;\
+    \}\
+\
+    \cf6 //---closes the database---    \cf0 \
+    \cf2 public\cf0  \cf2 void\cf0  close() \
+    \{\
+        \cf3 DBHelper\cf0 .close();\
+    \}\
+    \
+    \cf6 //---insert a contact into the database---\cf0 \
+    \cf2 public\cf0  \cf2 long\cf0  insertProduct(String name, String ingrediants, \cf2 long\cf0  barcode, String allergys) \
+    \{\
+        ContentValues initialValues = \cf2 new\cf0  ContentValues();\
+        initialValues.put(\cf3 KEY_NAME\cf0 , name);\
+        initialValues.put(\cf3 KEY_BARCODE\cf0 , barcode);\
+        initialValues.put(\cf3 KEY_ALLERGYS\cf0 , allergys);\
+        initialValues.put(\cf3 KEY_INGREDIANTS\cf0 , ingrediants);\
+        \cf2 return\cf0  \cf3 db\cf0 .insert(\cf3 DATABASE_TABLE\cf0 , \cf2 null\cf0 , initialValues);\
+    \}\
+\
+    \cf6 //---retrieves a particular contact---\cf0 \
+    \cf2 public\cf0  Cursor getProduct(\cf2 long\cf0  barcode) \cf2 throws\cf0  SQLException \
+    \{\
+        Cursor mCursor =\
+                \cf3 db\cf0 .query(\cf2 true\cf0 , \cf3 DATABASE_TABLE\cf0 , \cf2 new\cf0  String[] \{\cf3 KEY_ROWID\cf0 ,\
+                \cf3 KEY_NAME\cf0 , \cf3 KEY_BARCODE\cf0 \}, \cf3 KEY_BARCODE\cf0  + \cf4 "="\cf0  + barcode, \cf2 null\cf0 ,\
+                \cf2 null\cf0 , \cf2 null\cf0 , \cf2 null\cf0 , \cf2 null\cf0 );\
+        \cf2 if\cf0  (mCursor != \cf2 null\cf0 ) \{\
+            mCursor.moveToFirst();\
+        \}\
+        \cf2 return\cf0  mCursor;\
+    \}\
+\
+\}\
+}

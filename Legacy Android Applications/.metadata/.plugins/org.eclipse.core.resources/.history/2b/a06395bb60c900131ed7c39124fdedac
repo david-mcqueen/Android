@@ -1,0 +1,13 @@
+package co.uk.introapps.NiniMilano.Database;
+
+public class Offer {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

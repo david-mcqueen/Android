@@ -1,0 +1,55 @@
+package co.uk.introapps.NinoMilano.Fragment;
+
+import java.util.ArrayList;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+import co.uk.introapps.NinoMilano.R;
+import co.uk.introapps.NinoMilano.Model.RewardItem;
+import co.uk.introapps.NinoMilano.Model.RewardAdapter;
+
+public class FragmentDisplayCard extends Fragment{
+
+public static final String ARG_SECTION_NUMBER = "section_number";
+private static final String TAG = "Nino-FragmentSignup";
+	
+	public FragmentDisplayCard(){
+	}
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+		View rootView;
+		
+			rootView = inflater.inflate(R.layout.loyalty_display_card,
+					container, false);
+			Log.i(TAG, "DisplayCardFragment");
+			
+			TextView currentBalance = (TextView) rootView.findViewById(R.id.textCurrentBalance);
+			TextView loyaltyID = (TextView) rootView.findViewById(R.id.textLoyaltyID);
+			
+			currentBalance.setText("0");
+			loyaltyID.setText("DM0001NM");
+			
+			RewardAdapter adapter = new RewardAdapter(this.getActivity(), generateData());
+		    ListView listView = (ListView) rootView.findViewById(R.id.listRewards);
+		    listView.setAdapter(adapter);
+			
+			
+			return rootView;
+	}
+	
+	private ArrayList<RewardItem> generateData(){
+	    ArrayList<RewardItem> items = new ArrayList<RewardItem>();
+	    items.add(new RewardItem("Physics notes","Hazim","1/1/14"));
+	    items.add(new RewardItem("Football","Hazim","1/1/14"));
+	    items.add(new RewardItem("dil","sb bta du?","1/1/14"));
+
+	return items;
+	}
+
+}

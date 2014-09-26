@@ -1,0 +1,22 @@
+1393842161654	Rename local variable 'values'
+1393842197453	Rename local variable 'treatments'
+1393843267727	Move 'gradient_bg_hover.xml' to 'drawable-hdpi'
+1393843278090	Move 1 resources to 'drawable-hdpi'
+1393843511355	Move 1 resources to 'layout'
+1394293815051	Encapsulate field 'isHeader'
+1394296398200	Delete element
+1394296409713	Delete element
+1394296501416	Delete element
+1394296507696	Delete element
+1394297352099	Delete element
+1394297359872	Delete element
+1394300288111	Delete element
+1394300297890	Delete element
+1394355142780	Delete element
+1394385319513	Delete element
+1394385338917	Rename resource 'Launcher_Big.png'
+1394385365384	Delete elements
+1394385377437	Rename resource 'Launcher_Small.png'
+1394385389055	Rename resource 'Launcher_Medium.png'
+1394385398909	Copy file
+1394385402483	Copy file

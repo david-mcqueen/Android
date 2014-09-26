@@ -1,0 +1,66 @@
+package co.uk.introapps.NinoMilano;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+public class FragmentHome extends Fragment{
+	
+	
+	public static final String ARG_SECTION_NUMBER = "section_number";	
+	
+	// Your Facebook APP ID
+    private static String APP_ID = "289228091233524"; // Replace your App ID here
+ 
+	
+	public FragmentHome(){
+	}
+	
+	
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+			View rootView = inflater.inflate(R.layout.fragment_home, container, false);	
+			
+			Button btnLogin = (Button) rootView.findViewById(R.id.btnCall);
+			Button btnEmail = (Button) rootView.findViewById(R.id.btnEmail);
+			Button btnFacebook = (Button) rootView.findViewById(R.id.btnFacebook);
+			
+			btnLogin.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent callIntent = new Intent(Intent.ACTION_DIAL);
+					callIntent.setData(Uri.parse("tel:07712454780"));
+					startActivity(callIntent);
+				}
+			});
+			
+			btnEmail.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+				            "mailto","abc@gmail.com", null));
+				emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Nino Milano App");
+				emailIntent.putExtra(Intent.EXTRA_TEXT, "kittens");
+				startActivity(Intent.createChooser(emailIntent, "Send email..."));
+				}
+			});
+			
+			btnFacebook.setOnClickListener(new View.OnClickListener(){
+				
+				public void onClick(View v){
+					
+				}
+				
+			});
+			
+			return rootView;
+	}
+}

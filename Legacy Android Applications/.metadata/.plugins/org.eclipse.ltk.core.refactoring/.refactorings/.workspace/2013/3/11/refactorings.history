@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 11 resources" deleteContents="false" description="Delete 11 resources" element1="/BooleanOGSample" element10="/SessionLoginSample" element11="/SwitchUserSample" element2="/FacebookSDK" element3="/FriendPickerSample" element4="/GraphApiSample" element5="/Hackbook" element6="/HelloFacebookSample" element7="/PlacePickerSample" element8="/ProfilePictureSample" element9="/Scrumptious" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="11" stamp="1362999931788"/>
+</session>
